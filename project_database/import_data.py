@@ -36,12 +36,30 @@ class MSSQL:
         self.conn.commit()
         self.conn.close()
 
+def importDataToFrom(Formname):
+    ms = MSSQL(host="192.168.0.109", user="EBook", pwd="ebook", db="ebookdata", port="1434")
+    f = open('data.json', 'r')
+    hh = json.load(f)
+    count = 1
+
+    for field in hh['child']:
+        for sec_field in field['child']:
+            for paper in sec_field['papers']:
+                try:
+                    ms.ExecNonQuery("INSERT INTO %s VALUES ('%s', '%s', '%s')"%(Formname, paper['ID'],  field['name'], sec_field['name']))
+                except:
+                    print 'exception happend ', count, ' times'
+                    count += 1
+                    continue
+
+
 
 
 
 def main():
     ms = MSSQL(host="192.168.0.109",user="EBook",pwd="ebook", db="ebookdata", port="1434")
     #ms.ExecNonQuery("INSERT INTO Student_test VALUES ('Gates',  'female', '25')")
+    #importDataToFrom('PaperField')
     resList = ms.ExecQuery("SELECT PaperID,Author,Radius FROM PaperAuthorRadius")
     for (paper) in resList:
         print paper
