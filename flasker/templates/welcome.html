@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎</title>
+</head>
+<body>
+    <div class="main">
+        <div class="logo">假装有Logo</div>
+        <div class="select">
+            <a href="#signup">注册</a>
+            <a class="active" href="#login">登录</a>
+        </div>
+        <div class="signup invisible">
+            <form action="#">
+                <div class="inputs">
+                    <div class="inputbox">
+                        <input name="fullname" type="text" placeholder="姓名">
+                    </div>
+                    <div class="inputbox">
+                        <input name="student_id" type="text" placeholder="学号">
+                    </div>
+                    <div class="inputbox">
+                        <input name="password" type="password" placeholder="密码">
+                    </div>
+                </div>
+                <button type="submit">注册</button>
+            </form>
+        </div>
+        <div class="login">
+            <form action="#">
+                <div class="inputs">
+                    <div class="inputbox">
+                        <input name="student_id" type="text" placeholder="学号">
+                    </div>
+                    <div class="inputbox">
+                        <input name="password" type="password" placeholder="密码">
+                    </div>
+                </div>
+                <button type="submit">登录</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<style>
+.main {
+    margin: auto;
+    margin-top: 100px;
+    width: 250px;
+}
+
+.main > div {
+    margin-bottom: 25px;
+}
+
+.logo {
+    text-align: center;
+    font-size: 36px;
+    color: #0f88eb;
+}
+
+.invisible {
+    display: none;
+}
+
+.select {
+    text-align: center;
+    font-size: 24px;
+}
+
+.select > a {
+    text-decoration: none;
+    color: #858585;
+    padding: 8px;
+}
+
+.select > a.active {
+    color: #0f88eb;
+    border-bottom: 2px solid #0f88eb;
+}
+
+.login + .signup {
+    display: block;
+}
+
+.inputs {
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+}
+
+input {
+    padding: 1em .8em;
+    border: 0;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.inputbox ~ .inputbox{
+    border-top: 1px solid #e8e8e8;
+}
+
+button {
+    background: #0f88eb;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    width: 100%;
+    line-height: 41px;
+    margin-top: 18px;
+}
+</style>
+
+<script>
+var links = document.querySelectorAll(".select > a");
+var forms = document.querySelectorAll(".login, .signup");
+[].forEach.call(links, function (link) {
+    link.addEventListener("click", function (event) {
+        if (!event.target.classList.contains("active")) {
+            [].forEach.call(links, function (link) {
+                link.classList.toggle("active");
+            });
+            [].forEach.call(forms, function (form) {
+                form.classList.toggle("invisible");
+            });
+        }
+    });
+});
+</script>
+
+</html>
