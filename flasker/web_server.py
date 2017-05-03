@@ -1,11 +1,11 @@
-# encoding:utf-8
-import werkzeug
+# -*- coding: utf-8 -*-
+from werkzeug import secure_filename
 import os
 from flask import Flask, render_template, send_from_directory, request
+from dataBaseSupport import MSSQL
 
 UPLOAD_FOLDER =os.path.curdir+os.path.sep+'static\Ebook'+os.path.sep
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'doc',
-                      'docx','wps'}
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'docx', 'doc', 'wps'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -37,14 +37,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-#@app.route('/database')
-#def hello():
-#    resList = ms.ExecQuery("SELECT name,sex,class FROM Student_test")
-#    return resList[1][1]
-
-
-
 if __name__ == '__main__':
-    #ms = MSSQL(host="192.168.170.1", user="EBook", pwd="ebook", db="ebookdata")
+    #ms = MSSQL(host="192.168.0.106",user="EBook",pwd="ebook", db="ebookdata")
     app.debug = True
     app.run(host='0.0.0.0', port=1024)
