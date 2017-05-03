@@ -1,2 +1,4 @@
-static: css and javascript file
-template: html file
+upload: ip/  
+
+download: ip/item/  
+
