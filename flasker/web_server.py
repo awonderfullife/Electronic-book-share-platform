@@ -2,13 +2,20 @@
 from werkzeug import secure_filename
 import os
 from flask import Flask, render_template, send_from_directory, request
-from dataBaseSupport import MSSQL
+import os
+from flask.ext.login import LoginManager
+from flask.ext.openid import OpenID
+from config import basedir
 
 UPLOAD_FOLDER =os.path.curdir+os.path.sep+'static\Ebook'+os.path.sep
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'docx', 'doc', 'wps'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+lm = LoginManager()
+lm.init_app(app)
+oid = OpenID(app, os.path.join(basedir, 'tmp'))
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
