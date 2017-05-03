@@ -1,9 +1,11 @@
-from werkzeug import secure_filename
+# encoding:utf-8
+import werkzeug
 import os
 from flask import Flask, render_template, send_from_directory, request
 
 UPLOAD_FOLDER =os.path.curdir+os.path.sep+'static\Ebook'+os.path.sep
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'doc',
+                      'docx','wps'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -13,7 +15,8 @@ def upload_file():
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            # filename = werkzeug.secure_filename(file.filename)
+            filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template('upload.html')
     return render_template('upload.html')
