@@ -1,23 +1,17 @@
 # -*- coding: utf-8 -*-
-from werkzeug import secure_filename
-import os
-from flask import Flask, render_template, send_from_directory, request
-import os
-from flask.ext.login import LoginManager
-from flask.ext.openid import OpenID
-from config import basedir
 
-UPLOAD_FOLDER =os.path.curdir+os.path.sep+'static\Ebook'+os.path.sep
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'docx', 'doc', 'wps'])
+from flask import Flask, flash, render_template, request, session
+from flask import send_from_directory
+
+from user import User
+from config import *
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-lm = LoginManager()
-lm.init_app(app)
-oid = OpenID(app, os.path.join(basedir, 'tmp'))
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
@@ -39,12 +33,43 @@ def hello(name=None):
     return render_template('item.html', name=name)
 
 
+@app.route('/login',methods=['GET','POST'])
+def login():
+    POST_USERNAME = str(request.form['username'])
+    POST_PASSWORD = str(request.form['password'])
+
+    user = User(POST_USERNAME)
+    result = user.verify_password(POST_PASSWORD)
+
+    if result:
+        session['logged_in'] = True
+        session['user'] = user.username
+    else:
+        flash('wrong password!')
+    return index()
+
+
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return index()
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+@app.route('/')
+@app.route('/index')
+def index():
+    if not session.get('logged_in'):
+        return render_template('welcome.html')
+    else:
+        return render_template('main.html',user = session.get('user'))
+
+
 
 if __name__ == '__main__':
     #ms = MSSQL(host="192.168.0.106",user="EBook",pwd="ebook", db="ebookdata")
+    app.secret_key = os.urandom(12)
     app.debug = True
     app.run(host='0.0.0.0', port=1024)
