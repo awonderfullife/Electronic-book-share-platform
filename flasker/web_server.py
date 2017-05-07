@@ -70,7 +70,8 @@ def register():
         session[vid] = user.to_dict()
         session[vid]['password'] = post_password
         session[vid]['username'] = post_username
-        url = 'Here is an email for you:\n'+str(LOCAL_HOST) +':'+ str(PORT) + \
+        url = 'Here is an email for you:\n' + str(LOCAL_HOST) + ':' + str(
+            PORT) + \
               '/verify/' + str(vid)
         send_mail(EMAIL_ADDRESS_ADMIN, post_id, EMAIL_SUBJECT_REGISTER, url)
         return render_template('success.html')

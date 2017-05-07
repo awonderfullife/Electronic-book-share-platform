@@ -1,7 +1,11 @@
-import imp
 import json
 import pymssql
 from config import *
+import json
+import pymssql
+
+from config import *
+
 
 class SQLProvider:
     def __init__(self):
@@ -36,18 +40,18 @@ class SQLProvider:
         self.conn.close()
 
     def add_user(self, id, username, password_hash):
-        s = """INSERT INTO UserLogInfo VALUES ('{%s}', '{%s}', '{%s}')""" % (id, password_hash, username)
+        s = """INSERT INTO UserLogInfo VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
 
     def set_password(self, id, username, password_hash):
-        s = """INSERT INTO UserLogInfo VALUES ('{%s}', '{%s}', '{%s}')""" % (id, password_hash, username)
+        s = """INSERT INTO UserLogInfo VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
 
     def get_password_hash(self, id):
         getpswd_sql = """ SELECT PswdHash FROM UserLogInfo WHERE Mail='%s' """ % (id)
         resultList = self.ExecQuery(getpswd_sql)
         if len(resultList) != 0:
-            return resultList[0]
+            return resultList[0][0]
         return None
 
     def get_name_by_id(self, user_id):
@@ -56,7 +60,7 @@ class SQLProvider:
         getname_sql = """ SELECT NickName FROM UserLogInfo WHERE Mail='%s' """ % (user_id)
         resultList = self.ExecQuery(getname_sql)
         if len(resultList) != 0:
-            return resultList[0]
+            return resultList[0][0]
         return None
 
 
