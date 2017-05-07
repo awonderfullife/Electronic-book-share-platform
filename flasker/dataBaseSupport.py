@@ -4,7 +4,7 @@ import pymssql
 
 class SQLProvider:
     def __init__(self):
-        self.host = "192.168.1.102"
+        self.host = "192.168.0.106"
         self.user = "EBook"
         self.pwd = "ebook"
         self.db = "ebookdata"
@@ -45,7 +45,7 @@ class SQLProvider:
     def get_password_hash(self, id):
         getpswd_sql = """ SELECT PswdHash FROM UserLogInfo WHERE Mail='%s' """ % (id)
         resultList = self.ExecQuery(getpswd_sql)
-        if resultList is not None:
+        if len(resultList) != 0:
             return resultList[0]
         return None
 
@@ -54,7 +54,7 @@ class SQLProvider:
             return None
         getname_sql = """ SELECT NickName FROM UserLogInfo WHERE Mail='%s' """ % (user_id)
         resultList = self.ExecQuery(getname_sql)
-        if resultList is not None:
+        if len(resultList) != 0:
             return resultList[0]
         return None
 
@@ -92,19 +92,6 @@ class JSONProvider:
         except ValueError:
             return None
         return None
-
-    # def get_id(self, username):
-    #     if username is not None:
-    #         try:
-    #             with open(self.database_file) as f:
-    #                 user_profiles = json.load(f)
-    #                 if username in user_profiles:
-    #                     return user_profiles[username][1]
-    #         except IOError:
-    #             pass
-    #         except ValueError:
-    #             pass
-    #     return unicode(uuid.uuid4())
 
     def get_name_by_id(self, user_id):
         if not user_id:

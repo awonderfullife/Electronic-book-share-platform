@@ -80,7 +80,6 @@ def verify(vid=None):
     if vid is not None and session.get(vid) is not None:
         try:
             user_dict = dict(session.get(vid))
-            print user_dict
             new_user = User(user_dict['id'])
             new_user.username = user_dict['username']
             new_user.set_password(user_dict['password'])

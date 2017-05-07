@@ -2,13 +2,13 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 from werkzeug.security import generate_password_hash
 
-from dataBaseSupport import JSONProvider
+from dataBaseSupport import SQLProvider
 
 
 class User(UserMixin):
     def __init__(self, id):
         self.id = id
-        self.database = JSONProvider()
+        self.database = SQLProvider()
         self.username = self.get_username()
         self.password_hash = self.get_password_hash()
 

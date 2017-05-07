@@ -56,12 +56,12 @@ def main():
     ms = MSSQL(host="192.168.0.106",user="EBook",pwd="ebook", db=databaseName)
     # query = "SELECT name,sex,class FROM Student_test"
     # query = "SELECT UserID, nickName, passWord FROM UserLogInfo "
-    query = "INSERT INTO UserLogInfo (UserID, nickName, passWord) VALUES(" \
-            "'53E34','HU ZONG','huzong666');"
+    #query = "INSERT INTO UserLogInfo (UserID, nickName, passWord) VALUES(" \
+    #        "'53E34','HU ZONG','huzong666');"
 
-    resList = ms.ExecNonQuery(query)
+    #resList = ms.ExecNonQuery(query)
 
-    query = "SELECT UserID, nickName, passWord FROM UserLogInfo "
+    query = "SELECT PaperID FROM PaperField "
     resList = ms.ExecQuery(query)
     if resList is not None:
         for student in resList:
