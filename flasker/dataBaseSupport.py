@@ -1,13 +1,14 @@
 import imp
 import json
 import pymssql
+from config import *
 
 class SQLProvider:
     def __init__(self):
-        self.host = "192.168.0.106"
-        self.user = "EBook"
-        self.pwd = "ebook"
-        self.db = "ebookdata"
+        self.host = DATABASE_HOST
+        self.user = DATABASE_USER
+        self.pwd = DATABASE_PASSWD
+        self.db = DATABASE_NAME
 
     def __GetConnect(self):
         if not self.db:
@@ -61,7 +62,7 @@ class SQLProvider:
 
 class JSONProvider:
     def __init__(self):
-        self.database_file = "profiles.json"
+        self.database_file = DATABASE_FILE
 
     def add_user(self, id, username, password_hash):
         with open(self.database_file, 'r+') as f:

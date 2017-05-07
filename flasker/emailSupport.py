@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 import config
 
 
-def send_to_mail(you, content):
+def send_mail(me, you, subject, content):
     # Open a plain text file for reading.  For this example, assume that
     # the text file contains only ASCII characters.
     # textfile = 'mail.txt'
@@ -17,8 +17,8 @@ def send_to_mail(you, content):
 
     # me == the sender's email address
     # you == the recipient's email address
-    me = config.EMAIL_ADDRESS
-    msg['Subject'] = 'bla'
+
+    msg['Subject'] = subject
     msg['From'] = me
     msg['To'] = you
 

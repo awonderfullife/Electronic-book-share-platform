@@ -5,7 +5,7 @@ from flask import send_from_directory
 from werkzeug.security import generate_password_hash
 
 from config import *
-from emailSupport import send_to_mail
+from emailSupport import send_mail
 from user import User
 
 app = Flask(__name__)
@@ -70,8 +70,9 @@ def register():
         session[vid] = user.to_dict()
         session[vid]['password'] = post_password
         session[vid]['username'] = post_username
-        url = 'localhost:'+str(PORT)+'/verify/' + str(vid)
-        send_to_mail(post_id, url)
+        url = 'Here is an email for you:\n'+str(LOCAL_HOST) +':'+ str(PORT) + \
+              '/verify/' + str(vid)
+        send_mail(EMAIL_ADDRESS_ADMIN, post_id, EMAIL_SUBJECT_REGISTER, url)
         return render_template('success.html')
 
 
@@ -106,8 +107,6 @@ def index():
 
 
 if __name__ == '__main__':
-    # ms = MSSQL(host="192.168.0.106",user="EBook",pwd="ebook", db="ebookdata")
-
     app.secret_key = os.urandom(12)
     app.debug = True
     app.run(host='0.0.0.0', port=PORT)
