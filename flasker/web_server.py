@@ -70,7 +70,7 @@ def register():
         session[vid] = user.to_dict()
         session[vid]['password'] = post_password
         session[vid]['username'] = post_username
-        url = "localhost:1024/verify/" + str(vid)
+        url = 'localhost:'+str(PORT)+'/verify/' + str(vid)
         send_to_mail(post_id, url)
         return render_template('success.html')
 
@@ -111,4 +111,4 @@ if __name__ == '__main__':
 
     app.secret_key = os.urandom(12)
     app.debug = True
-    app.run(host='0.0.0.0', port=1024)
+    app.run(host='0.0.0.0', port=PORT)
