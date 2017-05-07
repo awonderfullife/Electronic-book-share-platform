@@ -1,2 +1,6 @@
 *.pyc
+<<<<<<< HEAD
 .python-version
+=======
+.python-version
+>>>>>>> Add gitignore
