@@ -2,19 +2,12 @@ import imp
 import json
 import pymssql
 
-SQL = imp.load_source('MSSQL', '../project_database/sql_operate.py')
-databaseName = "ebookdata"
-# databaseName = "UserLogInfo"
-ms = SQL.MSSQL(host="192.168.0.106", user="EBook", pwd="ebook",
-               db=databaseName)
-
-
 class SQLProvider:
-    def __init__(self, host, user, pwd, db):
-        self.host = host
-        self.user = user
-        self.pwd = pwd
-        self.db = db
+    def __init__(self):
+        self.host = "192.168.1.102"
+        self.user = "EBook"
+        self.pwd = "ebook"
+        self.db = "ebookdata"
 
     def __GetConnect(self):
         if not self.db:
@@ -40,6 +33,30 @@ class SQLProvider:
         cur.execute(sql)
         self.conn.commit()
         self.conn.close()
+
+    def add_user(self, id, username, password_hash):
+        s = """INSERT INTO UserLogInfo VALUES ('{%s}', '{%s}', '{%s}')""" % (id, password_hash, username)
+        self.ExecNonQuery(s)
+
+    def set_password(self, id, username, password_hash):
+        s = """INSERT INTO UserLogInfo VALUES ('{%s}', '{%s}', '{%s}')""" % (id, password_hash, username)
+        self.ExecNonQuery(s)
+
+    def get_password_hash(self, id):
+        getpswd_sql = """ SELECT PswdHash FROM UserLogInfo WHERE Mail='%s' """ % (id)
+        resultList = self.ExecQuery(getpswd_sql)
+        if resultList is not None:
+            return resultList[0]
+        return None
+
+    def get_name_by_id(self, user_id):
+        if not user_id:
+            return None
+        getname_sql = """ SELECT NickName FROM UserLogInfo WHERE Mail='%s' """ % (user_id)
+        resultList = self.ExecQuery(getname_sql)
+        if resultList is not None:
+            return resultList[0]
+        return None
 
 
 class JSONProvider:
