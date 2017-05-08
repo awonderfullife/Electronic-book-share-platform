@@ -1,1 +1,10 @@
-{"2287189214@qq.com": ["pbkdf2:sha1:1000$dIgIgZsr$816f4b89f96c3787d29b78bf978a8f9e17eea696", "tang"], "2287189204@qq.com": ["pbkdf2:sha1:1000$lP86xcX1$580321f193f3093d4a5afc7bef1316a01e5c523e", "Tang Songkai"], "yiyuqi@163.com": ["pbkdf2:sha1:1000$2Laf62oy$41dfd7e91b91e5085103ba43b38a21f07c7fd3d5", "Master Yi"]}
+{
+  "2287189204@qq.com": [
+    "pbkdf2:sha1:1000$lP86xcX1$580321f193f3093d4a5afc7bef1316a01e5c523e",
+    "Tang Songkai"
+  ],
+  "yiyuqi@163.com": [
+    "pbkdf2:sha1:1000$2Laf62oy$41dfd7e91b91e5085103ba43b38a21f07c7fd3d5",
+    "Master Yi"
+  ]
+}

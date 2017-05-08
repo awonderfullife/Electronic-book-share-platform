@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import pymssql
 from config import *
@@ -66,28 +67,29 @@ class SQLProvider:
 
 class JSONProvider:
     def __init__(self):
-        self.database_file = DATABASE_FILE
+        self.user_database_file = USER_DATABASE_FILE
+        self.verification_database_file = VERIFICATION_DATABASE_FILE
 
     def add_user(self, id, username, password_hash):
-        with open(self.database_file, 'r+') as f:
+        with open(self.user_database_file, 'r+') as f:
             profiles = json.load(f)
             profiles[id] = [password_hash, username]
 
-            with open(self.database_file, 'w+') as newF:
+            with open(self.user_database_file, 'w+') as newF:
                 newF.write(json.dumps(profiles))
 
     def set_password(self, id, username, password_hash):
-        with open(self.database_file, 'r+') as f:
+        with open(self.user_database_file, 'r+') as f:
 
             profiles = json.load(f)
             profiles[id] = [password_hash, username]
 
-            with open(self.database_file, 'w+') as newF:
+            with open(self.user_database_file, 'w+') as newF:
                 newF.write(json.dumps(profiles))
 
     def get_password_hash(self, id):
         try:
-            with open(self.database_file) as f:
+            with open(self.user_database_file) as f:
                 user_profiles = json.load(f)
                 user_info = user_profiles.get(id, None)
                 if user_info is not None:
@@ -102,11 +104,45 @@ class JSONProvider:
         if not user_id:
             return None
         try:
-            with open(self.database_file) as f:
+            with open(self.user_database_file) as f:
                 user_profiles = json.load(f)
                 if user_id in user_profiles:
                     return user_profiles[user_id][1]
 
+        except:
+            return None
+        return None
+
+    def add_temp_user(self,vid,info_list):
+        with open(self.verification_database_file, 'r+') as f:
+            profiles = json.load(f)
+            profiles[vid] = info_list
+
+            with open(self.verification_database_file, 'w+') as newF:
+                newF.write(json.dumps(profiles))
+
+    def get_temp_user(self,vid):
+        if not vid:
+            return None
+        try:
+            with open(self.verification_database_file) as f:
+                user_profiles = json.load(f)
+                if vid in user_profiles:
+                    return user_profiles[vid]
+
+        except:
+            return None
+        return None
+
+    def validate_temp_user(self,vid):
+        if not vid:
+            return None
+        try:
+            with open(self.verification_database_file) as f:
+                user_profiles = json.load(f)
+                user_profiles.pop(vid,None)
+                with open(self.verification_database_file, 'w+') as newF:
+                    newF.write(json.dumps(user_profiles))
         except:
             return None
         return None
