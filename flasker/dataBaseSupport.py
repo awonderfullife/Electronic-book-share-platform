@@ -41,11 +41,11 @@ class SQLProvider:
         self.conn.close()
 
     def add_user(self, id, username, password_hash):
-        s = """INSERT INTO UserLogInfo VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
+        s = """INSERT INTO UserLogInfo (Mail, PswdHash, NickName) VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
 
     def set_password(self, id, username, password_hash):
-        s = """INSERT INTO UserLogInfo VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
+        s = """INSERT INTO UserLogInfo (Mail, PswdHash, NickName) VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
 
     def get_password_hash(self, id):
@@ -63,6 +63,41 @@ class SQLProvider:
         if len(resultList) != 0:
             return resultList[0][0]
         return None
+
+    def getUserInfo(self, userID):
+        if not userID:
+            return None
+        getuserinfo_sql = """SELECT Mail, NickName, PhoneNum
+                                    FROM UserLogInfo
+                                    WHERE Mail = '%s' """ % (userID)
+        resultList = self.ExecQuery(getuserinfo_sql)
+        if len(resultList) != 0:
+            userid = resultList[0][0]
+            username = resultList[0][1]
+            userphone = resultList[0][2]
+            userid = userid.rstrip(' ')
+            if username is not None:
+                username = username.rstrip(' ')
+            if userphone is not None:
+                userphone.rstrip()
+            return [username, userid, userphone]
+        return None
+
+    def updateUserInfo(self, userID, userName, phoneNum):
+        updateuserinfo_sql = """UPDATE UserLogInfo
+                                    SET NickName = '%s', PhoneNum = '%s'
+                                    WHERE Mail = '%s' """ % (userName,phoneNum,userID)
+        self.ExecNonQuery(updateuserinfo_sql)
+        return True
+
+    def filterEbook(self):
+        pass
+
+    def getEBookInfo(self, EBookID):
+        pass
+
+    def updateEBookInfo(self, EBookID, name, type, notes):
+        pass
 
 
 class JSONProvider:
@@ -146,3 +181,9 @@ class JSONProvider:
         except:
             return None
         return None
+
+#ms = SQLProvider()
+#print ms.getUserInfo("2441337315@qq.com")
+#ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
+
+
