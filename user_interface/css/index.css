@@ -100,7 +100,7 @@ body {
 /*List content*/
 
 .marketing .col-md-3 .caption {
-  height: 120px;
+  height: 150px;
 }
 
 .marketing .col-md-3 img {
@@ -108,22 +108,22 @@ body {
 }
 
 .marketing .col-md-3 h3 {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .marketing .col-md-3 p {
-  font-size: 8px;
+  font-size: 15px;
 }
 
 .marketing .col-md-3 span {
-  font-size: 4px;
+  font-size: 15px;
  padding-right: 20px;
   font-weight: lighter;
 }
 
 .marketing .col-md-3 .credit{
   font-weight: bold;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 
