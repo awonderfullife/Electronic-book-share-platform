@@ -90,14 +90,63 @@ class SQLProvider:
         self.ExecNonQuery(updateuserinfo_sql)
         return True
 
-    def filterEbook(self):
-        pass
+    def filterEbook(self, name="", catagory="", sortby="EBookID", score_low=0,score_high=1000,page=0):
+        fliter_sql = ""
+        if name != "" and catagory == "":
+            fliter_sql = """SELECT EBookID
+                            From EBookInfo
+                            WHERE Name = '%s' AND Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            ORDER BY '%s' DESC """ % (name,score_low, score_high, page, sortby)
+        if name != "" and catagory != "":
+            fliter_sql = """SELECT EBookID
+                            From EBookInfo
+                            WHERE Name = '%s'AND Type='%s' AND Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            ORDER BY '%s' DESC """ % (name,catagory, score_low, score_high, page, sortby)
+        if name == "" and catagory == "":
+            fliter_sql = """SELECT EBookID
+                            From EBookInfo
+                            WHERE Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            ORDER BY '%s' DESC """ % (score_low, score_high, page, sortby)
+        if name == "" and catagory != "":
+            fliter_sql = """SELECT EBookID
+                            From EBookInfo
+                            WHERE Type='%s' AND Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            ORDER BY '%s' DESC """ % (catagory, score_low, score_high, page, sortby)
+        # print filter_sql
+        resultlist = self.ExecQuery(fliter_sql)
+        listresult = []
+        for item in resultlist:
+            listresult.append(item[0])
+        # print listresult
+        return listresult
+
 
     def getEBookInfo(self, EBookID):
-        pass
+        if not EBookID:
+            return None
+        getbookinfo_sql = """SELECT Name, Type, Notes
+                                    FROM EBookInfo
+                                    WHERE EBookID = '%s' """ % (EBookID)
+        resultList = self.ExecQuery(getbookinfo_sql)
+        if len(resultList) != 0:
+            bookname = resultList[0][0]
+            booktype = resultList[0][1]
+            booknotes = resultList[0][2]
+            if bookname is not None:
+                bookname = bookname.rstrip(' ')
+            if booktype is not None:
+                booktype = booktype.rstrip(' ')
+            if booknotes is not None:
+                booknotes.rstrip()
+            return [bookname, booktype, booknotes]
+        return None
 
     def updateEBookInfo(self, EBookID, name, type, notes):
-        pass
+        updatebookinfo_sql = """UPDATE EBookInfo
+                                    SET Name = '%s', Type = '%s', Notes = '%s'
+                                    WHERE EBookID = '%s' """ % (name, type, notes, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql)
+        return True
 
 
 class JSONProvider:
