@@ -95,22 +95,22 @@ class SQLProvider:
         if name != "" and catagory == "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Name = '%s' AND Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            WHERE Name = '%s' AND Score >= '%d' AND Score <= '%d' AND Page >= '%d'
                             ORDER BY '%s' DESC """ % (name,score_low, score_high, page, sortby)
         if name != "" and catagory != "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Name = '%s'AND Type='%s' AND Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            WHERE Name = '%s'AND Type='%s' AND Score >= '%d' AND Score <= '%d' AND Page >= '%d'
                             ORDER BY '%s' DESC """ % (name,catagory, score_low, score_high, page, sortby)
         if name == "" and catagory == "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            WHERE Score >= '%d' AND Score <= '%d' AND Page >= '%d'
                             ORDER BY '%s' DESC """ % (score_low, score_high, page, sortby)
         if name == "" and catagory != "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Type='%s' AND Score >= '%d' AND Socre <= '%d' AND Page >= '%d'
+                            WHERE Type='%s' AND Score >= '%d' AND Score <= '%d' AND Page >= '%d'
                             ORDER BY '%s' DESC """ % (catagory, score_low, score_high, page, sortby)
         # print filter_sql
         resultlist = self.ExecQuery(fliter_sql)
@@ -119,7 +119,6 @@ class SQLProvider:
             listresult.append(item[0])
         # print listresult
         return listresult
-
 
     def getEBookInfo(self, EBookID):
         if not EBookID:
@@ -234,5 +233,10 @@ class JSONProvider:
 #ms = SQLProvider()
 #print ms.getUserInfo("2441337315@qq.com")
 #ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
+#list1 = ms.filterEbook()
+#print list1[0]
+#print ms.getEBookInfo(list1[0])
+
+
 
 
