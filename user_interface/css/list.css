@@ -54,7 +54,7 @@ footer {
 }
 
 .marketing .col-lg-4 .caption {
-  height: 120px;
+  height: 150px;
 }
 
 .marketing .col-lg-4 img {
@@ -62,22 +62,22 @@ footer {
 }
 
 .marketing .col-lg-4 h3 {
-  font-size: 15px;
+  font-size:20px;
 }
 
 .marketing .col-lg-4 p {
-  font-size: 8px;
+  font-size: 15px;
 }
 
 .marketing .col-lg-4 span {
-  font-size: 4px;
+  font-size: 15px;
  padding-right: 20px;
   font-weight: lighter;
 }
 
 .marketing .col-lg-4 .credit{
   font-weight: bold;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 /*
