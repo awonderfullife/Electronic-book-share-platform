@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./icon/icon.png">
+
+    <title>电子书分享平台_注册</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/signup.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="./index.html">电子书分享平台</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="./index.html">主页<span class="sr-only">(current)</span></a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 学科地图</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  学科分类<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="./list.html">计算机</a></li>
+                      <li><a href="#">经济管理</a></li>
+                      <li><a href="#">心理学</a></li>
+                      <li><a href="#">外语</a></li>
+                      <li><a href="#">文学历史</a></li>
+                      <li><a href="#">艺术设计</a></li>
+                      <li><a href="#">工学</a></li>
+                      <li><a href="#">理学</a></li>
+                  </ul>
+              </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入检索的图书">
+              </div>
+              <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 联系我们</a></li>
+              <li>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> 
+                  登录
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">请登录</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-signin">
+                          <label for="inputEmail" class="sr-only">Email address</label>
+                          <input type="email" id="inputEmail" class="form-control" placeholder="电子邮箱" required autofocus>
+                          <label for="inputPassword" class="sr-only">Password</label>
+                          <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" value="remember-me"> 记住密码
+                            </label>
+                          </div>
+                          <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <a class="btn btn-default" href="./signup.html" role="button">没有帐号？立即注册</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav> 
+
+    <div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">请填写以下信息完成注册</h2>
+        <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="username" class="form-control" id="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="email">电子邮箱</label>
+            <input type="email" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">头像</label>
+            <input type="file" id="exampleInputFile">
+            <p class="help-block">请选择头像文件</p>
+        </div>
+        <div class="checkbox">
+            <label>
+            <input type="checkbox"> 我已阅读并同意
+            <a href="#">《电子书分享平台用户须知》</a>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">注册</button>
+    </form>
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="./assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

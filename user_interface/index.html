@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./icon/icon.png">
+
+    <title>电子书分享平台_主页</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="./css/index.css" rel="stylesheet">
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="./index.html">电子书分享平台</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="./index.html">主页<span class="sr-only">(current)</span></a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 学科地图</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  学科分类<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="./list.html">计算机</a></li>
+                      <li><a href="#">经济管理</a></li>
+                      <li><a href="#">心理学</a></li>
+                      <li><a href="#">外语</a></li>
+                      <li><a href="#">文学历史</a></li>
+                      <li><a href="#">艺术设计</a></li>
+                      <li><a href="#">工学</a></li>
+                      <li><a href="#">理学</a></li>
+                  </ul>
+              </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入检索的图书">
+              </div>
+              <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 联系我们</a></li>
+              <li>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> 
+                  登录
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">请登录</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-signin">
+                          <label for="inputEmail" class="sr-only">Email address</label>
+                          <input type="email" id="inputEmail" class="form-control" placeholder="电子邮箱" required autofocus>
+                          <label for="inputPassword" class="sr-only">Password</label>
+                          <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" value="remember-me"> 记住密码
+                            </label>
+                          </div>
+                          <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <a class="btn btn-default" href="./signup.html" role="button">没有帐号？立即注册</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>  
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img class="first-slide" src="./image/slide_1.jpg" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>高效的电子书分享平台</h1>
+              <p>海量资源，上传越多，下载越多。文理工农医商，你想要的，都在这里！</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">立即注册</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="second-slide" src="./image/slide_2.jpg" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>机器学习导论</h1>
+              <p>本书对机器学习做入门级介绍，主要介绍机器学习的概念、典型的行业案例，并对比机器学习和传统数据分析的差别，一些经典的算法。</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">立即阅读</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="./image/slide_3.jpg" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>前端开发入门</h1>
+              <p>为零基础学习者准备，从零开始学习Web开发。鼓励的学习方式是learning by doing，课程设置平滑，和打游戏闯关一样的学习体验。</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">探索路径</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4 col-sm-6">
+          <img class="img-circle" src="./image/writer_1.jpg" alt="Generic placeholder image" width="140" height="140">
+          <h2>翁惠玉</h2>
+          <div class="writer-description">
+            <p>上海交通大学计算机系副教授。毕业于上海交通大学。主要从事计算机网络和信息系统的研究，并长期承担程序设计的教学工作。</p>
+          </div>
+          <p><a class="btn btn-primary" href="#" role="button">所有作品 <span class="badge">99</span></a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 col-sm-6">
+          <img class="img-circle" src="./image/writer_2.jpg" alt="Generic placeholder image" width="140" height="140">
+          <h2>李为民</h2>
+          <div class="writer-description">
+            <p>上海交通大学数学系教授，研究方向为代数(半群),组合与图论.共发表学术论文29篇,其中11篇为SCI论文,其余均为国内核心期刊论文。</p>
+          </div>
+          <p><a class="btn btn-primary" href="#" role="button">所有作品 <span class="badge">99</span></a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 col-sm-6">
+          <img class="img-circle" src="./image/writer_3.jpg" alt="Generic placeholder image" width="140" height="140">
+          <h2>曹健</h2>
+          <div class="writer-description">
+            <p>上海交通大学教授, 博士生导师。研究领域为服务计算、网络计算、智能数据分析。</p>
+          </div>
+          <p><a class="btn btn-primary" href="#" role="button">所有作品 <span class="badge">99</span></a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row">
+        <div class="col-md-3 col-sm-4 col-md-8">
+          <div class="thumbnail">
+            <img src="./image/book_1.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《数据结构：思想与实现》</h3>
+              <p>本书条理清晰，严格按照线性结构、树形结构、集合结构和图形结构的次序来组织编写...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="./book.html" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="./image/book_2.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《数学分析（Ⅰ）》</h3>
+              <p>本书是为贯彻教育部教学改革精神，实施全英语授课需要而编写，此书书稿在实际教学...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="./image/book_3.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《面向对象软件工程：使用UML、模式与Java》</h3>
+              <p>本书是为...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="./image/book_1.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《数据结构：思想与实现》</h3>
+              <p>本书条理清晰，严格按照线性结构、树形结构、集合结构和图形结构的次序来组织编写...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="./image/book_2.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《数学分析（Ⅰ）》</h3>
+              <p>本书是为贯彻教育部教学改革精神，实施全英语授课需要而编写，此书书稿在实际教学...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="./image/book_3.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《面向对象软件工程：使用UML、模式与Java》</h3>
+              <p>本书是为...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="./image/book_1.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《数据结构：思想与实现》</h3>
+              <p>本书条理清晰，严格按照线性结构、树形结构、集合结构和图形结构的次序来组织编写...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="./image/book_2.jpg" alt="Book image">
+            <div class="caption">
+              <h3>《数学分析（Ⅰ）》</h3>
+              <p>本书是为贯彻教育部教学改革精神，实施全英语授课需要而编写，此书书稿在实际教学...</p>
+            </div>
+            <span>下载量：999</span>
+            <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span class="credit">
+                10积分
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- /END THE FEATURETTES -->
+      
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2016 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="./assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
