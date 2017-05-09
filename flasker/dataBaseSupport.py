@@ -7,6 +7,13 @@ import pymssql
 
 from config import *
 
+"""
+Attention: Don't change any char in this file to avoid unnecessary conflicts
+just contact with cooper.yi ~
+Created by : Cooper yi
+Date : 2017/5/9
+"""
+
 
 class SQLProvider:
     def __init__(self):
@@ -67,7 +74,7 @@ class SQLProvider:
     def getUserInfo(self, userID):
         if not userID:
             return None
-        getuserinfo_sql = """SELECT Mail, NickName, PhoneNum
+        getuserinfo_sql = """SELECT Mail, NickName, PhoneNum, Score
                                     FROM UserLogInfo
                                     WHERE Mail = '%s' """ % (userID)
         resultList = self.ExecQuery(getuserinfo_sql)
@@ -75,12 +82,13 @@ class SQLProvider:
             userid = resultList[0][0]
             username = resultList[0][1]
             userphone = resultList[0][2]
+            userscore = resultList[0][3]
             userid = userid.rstrip(' ')
             if username is not None:
                 username = username.rstrip(' ')
             if userphone is not None:
                 userphone.rstrip()
-            return [username, userid, userphone]
+            return [username, userid, userphone, userscore]
         return None
 
     def updateUserInfo(self, userID, userName, phoneNum):
@@ -140,10 +148,10 @@ class SQLProvider:
             return [bookname, booktype, booknotes]
         return None
 
-    def updateEBookInfo(self, EBookID, name, type, notes):
+    def updateEBookInfo(self, EBookID, name, type, score):
         updatebookinfo_sql = """UPDATE EBookInfo
-                                    SET Name = '%s', Type = '%s', Notes = '%s'
-                                    WHERE EBookID = '%s' """ % (name, type, notes, EBookID)
+                                    SET Name = '%s', Type = '%s', Score = '%s'
+                                    WHERE EBookID = '%s' """ % (name, type, score, EBookID)
         self.ExecNonQuery(updatebookinfo_sql)
         return True
 
@@ -230,12 +238,17 @@ class JSONProvider:
             return None
         return None
 
-# ms = SQLProvider()
-# print ms.getUserInfo("2441337315@qq.com")
-# ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
-# list1 = ms.filterEbook()
-# print list1[0]
-# print ms.getEBookInfo(list1[0])
+"""
+blow is the code that success run in my computer, and it does modify or
+feached the data we needed.
+"""
+#ms = SQLProvider()
+#print ms.getUserInfo("2441337315@qq.com")
+#ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
+#list1 = ms.filterEbook()
+#print list1[0]
+#print ms.getEBookInfo(list1[0])
+#ms.updateEBookInfo('002D06F3', 'goodstory', 'Computer Science', 999)
 
 
 
