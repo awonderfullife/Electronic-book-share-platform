@@ -42,43 +42,43 @@ class DataBase(object):
         ]
         self.books = {
             1: {
-                "name": "《数据结构：思想与实现》",
-                "score": 100,
-                "rate": 5,
-                "download_time": 999,
-                "description": "《数据结构：思想与实现/“十二五”普通高等教育本科规划教材》条理清晰，严格按照线性结构、 树形结构、集合结构和图形结构的次序来组织编写。除了常规的数据结构内容之外，还介绍了一些 高级的数据结构，如红黑树、AA树和跳表等，并提供了大量的数据结构应用实例。让读者在学习数 据结构的同时，逐步了解为什么要学习数据结构，了解数据结构对计算机专业的重要性。《数据结 构：思想与实现/“十二五”普通高等教育本科规划教材》内容翔实，既注重数据结构和算法的原理 ，又十分强调和程序设计课程的衔接。在讲授数据结构的同时，不断加强学生对程序设计的理解。 书中的算法都有完整的C＋＋实现。这些程序结构清晰，构思精巧。",
-                "author": "jian cao",
-                "catagory": "computer science",
-                "img_url": "/static/image/book_1.jpg",
-                "uploader": "张老师",
-                "created_at": "2017-05-06T13:28:03",
-                "updated_at": "2017-05-07T07:47:03",
+                'name': '《数据结构：思想与实现》',
+                'score': 100,
+                'rate': 5,
+                'download_time': 999,
+                'description': '《数据结构：思想与实现/“十二五”普通高等教育本科规划教材》条理清晰，严格按照线性结构、 树形结构、集合结构和图形结构的次序来组织编写。除了常规的数据结构内容之外，还介绍了一些 高级的数据结构，如红黑树、AA树和跳表等，并提供了大量的数据结构应用实例。让读者在学习数 据结构的同时，逐步了解为什么要学习数据结构，了解数据结构对计算机专业的重要性。《数据结 构：思想与实现/“十二五”普通高等教育本科规划教材》内容翔实，既注重数据结构和算法的原理 ，又十分强调和程序设计课程的衔接。在讲授数据结构的同时，不断加强学生对程序设计的理解。 书中的算法都有完整的C＋＋实现。这些程序结构清晰，构思精巧。',
+                'author': 'jian cao',
+                'catagory': 'computer science',
+                'img_url': '/static/image/book_1.jpg',
+                'uploader': '张老师',
+                'created_at': '2017-05-06T13:28:03',
+                'updated_at': '2017-05-07T07:47:03',
             },
             2: {
-                "name": "《数学分析（Ⅰ）》",
-                "score": 100,
-                "rate": 5,
-                "download_time": 999,
-                "description": "《数据结构：思想与实现/“十二五”普通高等教育本科规划教材》条理清晰，严格按照线性结构、 树形结构、集合结构和图形结构的次序来组织编写。除了常规的数据结构内容之外，还介绍了一些 高级的数据结构，如红黑树、AA树和跳表等，并提供了大量的数据结构应用实例。让读者在学习数 据结构的同时，逐步了解为什么要学习数据结构，了解数据结构对计算机专业的重要性。《数据结 构：思想与实现/“十二五”普通高等教育本科规划教材》内容翔实，既注重数据结构和算法的原理 ，又十分强调和程序设计课程的衔接。在讲授数据结构的同时，不断加强学生对程序设计的理解。 书中的算法都有完整的C＋＋实现。这些程序结构清晰，构思精巧。",
-                "author": "jian cao",
-                "catagory": "computer science",
-                "img_url": "/static/image/book_2.jpg",
-                "uploader": "胡老板",
-                "created_at": "2017-05-06T13:28:03",
-                "updated_at": "2017-05-07T07:47:03",
+                'name': '《数学分析（Ⅰ）》',
+                'score': 100,
+                'rate': 5,
+                'download_time': 999,
+                'description': '《数据结构：思想与实现/“十二五”普通高等教育本科规划教材》条理清晰，严格按照线性结构、 树形结构、集合结构和图形结构的次序来组织编写。除了常规的数据结构内容之外，还介绍了一些 高级的数据结构，如红黑树、AA树和跳表等，并提供了大量的数据结构应用实例。让读者在学习数 据结构的同时，逐步了解为什么要学习数据结构，了解数据结构对计算机专业的重要性。《数据结 构：思想与实现/“十二五”普通高等教育本科规划教材》内容翔实，既注重数据结构和算法的原理 ，又十分强调和程序设计课程的衔接。在讲授数据结构的同时，不断加强学生对程序设计的理解。 书中的算法都有完整的C＋＋实现。这些程序结构清晰，构思精巧。',
+                'author': 'jian cao',
+                'catagory': 'computer science',
+                'img_url': '/static/image/book_2.jpg',
+                'uploader': '胡老板',
+                'created_at': '2017-05-06T13:28:03',
+                'updated_at': '2017-05-07T07:47:03',
             },
             3: {
-                "name": "《面向对象软件工程：使用UML、模式与Java》",
-                "score": 100,
-                "rate": 5,
-                "download_time": 999,
-                "description": "《数据结构：思想与实现/“十二五”普通高等教育本科规划教材》条理清晰，严格按照线性结构、 树形结构、集合结构和图形结构的次序来组织编写。除了常规的数据结构内容之外，还介绍了一些 高级的数据结构，如红黑树、AA树和跳表等，并提供了大量的数据结构应用实例。让读者在学习数 据结构的同时，逐步了解为什么要学习数据结构，了解数据结构对计算机专业的重要性。《数据结 构：思想与实现/“十二五”普通高等教育本科规划教材》内容翔实，既注重数据结构和算法的原理 ，又十分强调和程序设计课程的衔接。在讲授数据结构的同时，不断加强学生对程序设计的理解。 书中的算法都有完整的C＋＋实现。这些程序结构清晰，构思精巧。",
-                "author": "jian cao",
-                "catagory": "computer science",
-                "img_url": "/static/image/book_3.jpg",
-                "uploader": "胡老板",
-                "created_at": "2017-05-06T13:28:03",
-                "updated_at": "2017-05-07T07:47:03",
+                'name': '《面向对象软件工程：使用UML、模式与Java》',
+                'score': 100,
+                'rate': 5,
+                'download_time': 999,
+                'description': '《数据结构：思想与实现/“十二五”普通高等教育本科规划教材》条理清晰，严格按照线性结构、 树形结构、集合结构和图形结构的次序来组织编写。除了常规的数据结构内容之外，还介绍了一些 高级的数据结构，如红黑树、AA树和跳表等，并提供了大量的数据结构应用实例。让读者在学习数 据结构的同时，逐步了解为什么要学习数据结构，了解数据结构对计算机专业的重要性。《数据结 构：思想与实现/“十二五”普通高等教育本科规划教材》内容翔实，既注重数据结构和算法的原理 ，又十分强调和程序设计课程的衔接。在讲授数据结构的同时，不断加强学生对程序设计的理解。 书中的算法都有完整的C＋＋实现。这些程序结构清晰，构思精巧。',
+                'author': 'jian cao',
+                'catagory': 'computer science',
+                'img_url': '/static/image/book_3.jpg',
+                'uploader': '胡老板',
+                'created_at': '2017-05-06T13:28:03',
+                'updated_at': '2017-05-07T07:47:03',
             },
         }
 
@@ -97,8 +97,15 @@ class DataBase(object):
             return user['password'] == password
         return False
 
-    def query_by_id(self, id):
+    def query_user(self, id):
         return self.users.get(id)
+
+    def update_user(self, id, username):
+        user = self.users.get(id)
+        if user:
+            user['username'] = username
+            return True
+        return False
 
     def book_by_id(self, id):
         return self.books.get(id)
@@ -121,7 +128,7 @@ def book_page(id):
 
 
 @app.route('/list')
-def list():
+def book_list():
     return render_template('list.html')
 
 
@@ -148,13 +155,24 @@ def login():
     return 'login error', 400
 
 
-@app.route('/api/v1/user', methods=['GET'])
+@app.route('/personal')
+def personal():
+    return render_template('personal.html')
+
+
+@app.route('/api/v1/user', methods=['GET', 'POST'])
 def users():
     if session.get('logged_in') is True:
-        user = db.query_by_id(session['email'])
-        if user:
-            return jsonify(user)
-        return 'SQL error!', 500
+        if request.method == 'GET':
+            user = db.query_user(session['email'])
+            if user:
+                return jsonify(user)
+            return 'SQL error!', 500
+        elif request.method == 'POST':
+            username = request.form["name"]
+            if db.updated_user(session['email'], username):
+                return 'update success'
+            return 'update error', 500
     return 'not logged in', 400
 
 

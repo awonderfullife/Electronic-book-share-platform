@@ -5,11 +5,11 @@ function showUsername() {
         success: function(data) {
             console.log(data);
             $('#username').html(data.username);
-            $('#nav-username').removeClass("hidden");
-            $('#nav-login').addClass("hidden");
+            $('#nav-username').removeClass('hidden');
+            $('#nav-login').addClass('hidden');
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            $('#nav-login').removeClass("hidden");
+            $('#nav-login').removeClass('hidden');
             console.log(jqXHR.status);
         }
     });
@@ -22,7 +22,7 @@ $('#login-form').on('submit', (function(e) {
     var formData = new FormData(this);
     $.ajax({
         type: 'POST',
-        url: "/login",
+        url: '/login',
         data: formData,
         contentType: false,
         processData: false,
@@ -31,5 +31,8 @@ $('#login-form').on('submit', (function(e) {
             showUsername();
             $('#myModal').modal('hide');
         },
+        error: function(jqXHR, textStatus, errorThrown) {
+            $('#login-error').removeClass('hidden');
+        }
     });
 }));
