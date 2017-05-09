@@ -5,7 +5,6 @@ import time
 from flask import Flask, flash, render_template, request, session,jsonify
 from flask import send_from_directory
 from werkzeug.security import generate_password_hash
-
 from config import *
 from dataBaseSupport import JSONProvider,SQLProvider
 from emailSupport import send_mail
@@ -127,9 +126,14 @@ def index():
 def users():
     if session.get('logged_in') is True:
         if request.method == 'GET':
-            user = database.getUserInfo(session['email'])  #user [username, userid, userphone]
+            user = database.getUserInfo(session['email'])  #user [username, userid, userphone,userscore]
             if user:
-                return jsonify(user)
+                user_json = {}
+                user_json["name"] = user[0]
+                user_json["email"] = user[1]
+                user_json["phone"] = user[2]
+                user_json["score"] = user[3]
+                return jsonify(user_json)
             return 'SQL error!', 500
         elif request.method == 'POST':
             username = request.form["name"]
@@ -139,6 +143,72 @@ def users():
             return 'update error', 500
     return 'not logged in', 400
 
+@app.route('/api/v1/ebook', methods=['GET','POST'])
+def ebook():
+    if session.get('logged_in') is True:
+        book_id = request.args.get('id')
+        if request.method == 'GET':
+            book = database.getEBookInfo(book_id)  #book [bookname, booktype, booknotes]
+            if book:
+                book_json = {}
+                book_json["name"] = book[0]
+                book_json["score"] = 0
+                book_json["rate"] = 0
+                book_json["description"] = book[2]
+                book_json["download_time"] = 0
+                book_json["author"] = ""
+                book_json["catagory"] = book[1]
+                book_json["img_url"] = ""
+                book_json["uploader"] = ""
+                book_json["created_at"] = ""
+                book_json["updated_at"] = ""
+                return jsonify(book_json)
+            return 'SQL error!', 500
+        elif request.method == 'POST':
+            name = request.form["name"]
+            catagory = request.form["catagory"]
+            score = request.form["score"]
+            if database.updateEBookInfo(book_id,name,catagory,score):
+                return 'update success'
+            return 'update error',500
+    return 'not logged in',400
+
+@app.route('/api/v1/download_verify', methods=['GET'])
+def download_verify():
+    if session.get('logged_in') is True:
+        user = database.getUserInfo(session['email'])  #user [username, userid, userphone,userscore]
+        book_id = request.args.get('id')
+        book = database.getEBookInfo(book_id)  #book [bookname, booktype, booknotes]
+        result = jsonify({'current_score': user[3]})
+        if (user[3] >= book[3]):
+            return result
+        return result, 500
+    return 'not logged in', 400
+
+@app.route('/api/v1/list', methods=['GET'])
+def List():
+    if session.get('logged_in') is True:
+        name = request.args.get('name')
+        catagory = request.args.get('catagory')
+        sortby = request.args.get('sortby')
+        score_low = request.args.get('score_low')
+        score_high = request.args.get('score_high')
+        page = request.args.get('page')
+        book_list = database.filterEbook(name,catagory,sortby,score_low,score_high,page)
+        book_list_json = {}
+        book_list_json["book"] = []
+        for book in book_list:
+            book_json = {}
+            book_json["name"] = book[0]
+            book_json["score"] = 0
+            book_json["id"] = ""
+            book_json["img_url"] = ""
+            book_json["uploader"] = ""
+            book_json["created_at"] = ""
+            book_json["updated_at"] = ""
+            book_list_json["book"].append(book_json)
+        return jsonify(book_list_json)
+    return 'not logged in', 400
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
