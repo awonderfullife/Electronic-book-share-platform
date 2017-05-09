@@ -32,6 +32,11 @@ body {
   margin-left: 70%;
 }
 
+.portrait {
+  height: 100%;
+  width: 100%;
+}
+
 /* Hide for mobile, show later */
 .sidebar {
   display: none;

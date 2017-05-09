@@ -20,6 +20,11 @@ h6, .h6 {
 }
 
 /* Form base class */
+
+.navbar .modal-content {
+  background-color: #eee;
+}
+
 .form-signin {
   max-width: 330px;
   margin: 0 auto;

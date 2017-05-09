@@ -10,11 +10,13 @@ body {
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
+/* Form base class */
+
 .navbar .modal-content {
   background-color: #eee;
 }
 
-/* Form base class */
+
 .form-signin {
   max-width: 330px;
   margin: 0 auto;
