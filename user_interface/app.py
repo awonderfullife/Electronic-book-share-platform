@@ -12,6 +12,7 @@ class DataBase(object):
             'admin@sjtu.edu.cn': {
                 'username': 'admin',
                 'password': '123456',
+                'score': 1000000,
             }
         }
         self.lists = [
@@ -188,6 +189,19 @@ def ebook():
     book_id = request.args.get('id')
     book = db.book_by_id(int(book_id))
     return jsonify(book)
+
+
+@app.route('/api/v1/download_verify', methods=['GET'])
+def download_verify():
+    if session.get('logged_in') is True:
+        user = db.query_user(session['email'])
+        book_id = request.args.get('id')
+        book = db.book_by_id(int(book_id))
+        result = jsonify({'current_score': user['score']})
+        if (user['score'] >= book['score']):
+            return result
+        return result, 500
+    return 'not logged in', 400
 
 
 if __name__ == '__main__':

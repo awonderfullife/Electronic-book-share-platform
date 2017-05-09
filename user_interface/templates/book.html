@@ -239,13 +239,13 @@
           <div class="blog-post">
             <div class="dual-btn">
               <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#comfirm">
+                <button id="buy" type="button" class="btn btn-success">
                   <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                   购买
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="comfirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -253,11 +253,35 @@
                         <h4 class="modal-title" id="myModalLabel">请确认</h4>
                       </div>
                       <div class="modal-body">
-                        确认支付<span class="credit">10</span>积分？
+                        确认支付<span id="confirm-score" class="credit">10</span>积分？
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal">确认</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="need-more-score" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">积分不足</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div>当前积分<span id="curr_score" class="credit"></span></div>
+                        <div>所需积分<span id="need_score" class="credit"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="not-login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">尚未登录</h4>
                       </div>
                     </div>
                   </div>
