@@ -230,12 +230,12 @@ class JSONProvider:
             return None
         return None
 
-#ms = SQLProvider()
-#print ms.getUserInfo("2441337315@qq.com")
-#ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
-#list1 = ms.filterEbook()
-#print list1[0]
-#print ms.getEBookInfo(list1[0])
+ms = SQLProvider()
+print ms.getUserInfo("2441337315@qq.com")
+ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
+list1 = ms.filterEbook()
+print list1[0]
+print ms.getEBookInfo(list1[0])
 
 
 

@@ -8,7 +8,7 @@ basedir = '.'
 PORT = 1028
 LOCAL_HOST = socket.gethostbyname_ex(socket.gethostname())[2][2]
 
-DATABASE_HOST = '192.168.0.106'
+DATABASE_HOST = '59.78.1.17'
 DATABASE_USER = 'EBook'
 DATABASE_PASSWD = 'ebook'
 DATABASE_NAME = 'ebookdata'
@@ -20,7 +20,7 @@ UPLOAD_FOLDER = os.path.join(os.path.curdir, os.path.sep, 'static', 'Ebook',
                              os.path.sep)
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx', 'doc', 'wps'}
-ALLOWED_VERIFY_DURATION = 3
+ALLOWED_VERIFY_DURATION = 100
 
 EMAIL_ADDRESS_ADMIN = "sjtu_seiee_se@163.com"
 EMAIL_USERNAME = "sjtu_seiee_se"
