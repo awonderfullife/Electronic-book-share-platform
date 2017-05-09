@@ -2,19 +2,19 @@
 
 import time
 
-from flask import Flask, flash, render_template, request, session
+from flask import Flask, flash, render_template, request, session,jsonify
 from flask import send_from_directory
 from werkzeug.security import generate_password_hash
 
 from config import *
-from dataBaseSupport import JSONProvider
+from dataBaseSupport import JSONProvider,SQLProvider
 from emailSupport import send_mail
 from user import User, TempUser
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-database = JSONProvider()
+database = SQLProvider()
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -122,6 +122,22 @@ def index():
         return render_template('welcome.html')
     else:
         return render_template('main.html', user=session.get('user'))
+
+@app.route('/api/v1/user', methods=['GET', 'POST'])
+def users():
+    if session.get('logged_in') is True:
+        if request.method == 'GET':
+            user = database.getUserInfo(session['email'])  #user [username, userid, userphone]
+            if user:
+                return jsonify(user)
+            return 'SQL error!', 500
+        elif request.method == 'POST':
+            username = request.form["name"]
+            phoneNum = request.form["phoneNum"]
+            if database.updateUserInfo(session['email'],username,phoneNum):
+                return 'update success'
+            return 'update error', 500
+    return 'not logged in', 400
 
 
 if __name__ == '__main__':

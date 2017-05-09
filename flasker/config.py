@@ -6,7 +6,7 @@ SECRET_KEY = 'you-will-never-guess'
 basedir = '.'
 
 PORT = 1028
-LOCAL_HOST = socket.gethostbyname_ex(socket.gethostname())[2][2]
+#LOCAL_HOST = socket.gethostbyname_ex(socket.gethostname())[2][2]
 
 DATABASE_HOST = '59.78.1.17'
 DATABASE_USER = 'EBook'
