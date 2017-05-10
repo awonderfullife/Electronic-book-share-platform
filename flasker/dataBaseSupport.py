@@ -131,21 +131,72 @@ class SQLProvider:
     def getEBookInfo(self, EBookID):
         if not EBookID:
             return None
-        getbookinfo_sql = """SELECT Name, Type, Notes
-                                    FROM EBookInfo
+        getbookinfo_sql = """SELECT Name, Type, Note, Score, Rate, DownLoadTimes, Author, URL, Uploader, CreateTime, UpdateTime
+                                    FROM EBookBasic
                                     WHERE EBookID = '%s' """ % (EBookID)
         resultList = self.ExecQuery(getbookinfo_sql)
         if len(resultList) != 0:
             bookname = resultList[0][0]
             booktype = resultList[0][1]
             booknotes = resultList[0][2]
+            score = resultList[0][3]
+            rate = resultList[0][4]
+            download_times = resultList[0][5]
+            author = resultList[0][6]
+            img_url = resultList[0][7]
+            uploader = resultList[0][8]
+            create_at = resultList[0][9]
+            updates_at = resultList[0][10]
+
             if bookname is not None:
                 bookname = bookname.rstrip(' ')
             if booktype is not None:
                 booktype = booktype.rstrip(' ')
             if booknotes is not None:
-                booknotes.rstrip()
-            return [bookname, booktype, booknotes]
+                booknotes = booknotes.rstrip(' ')
+            if author is not None:
+                author = author.rstrip(' ')
+            if img_url is not None:
+                img_url = img_url.rstrip(' ')
+            if uploader is not None:
+                uploader = uploader.rstrip(' ')
+            if create_at is not None:
+                create_at = create_at.rstrip(' ')
+            if updates_at is not None:
+                updates_at = updates_at.rstrip(' ')
+
+            return [bookname, booktype, booknotes, score, rate, download_times, author, img_url, uploader, create_at, updates_at]
+        return None
+
+    def getEBookInfo2(self, EBookID):
+        if not EBookID:
+            return None
+        getbookinfo_sql = """SELECT Name, Score, EBookID, URL, Uploader, CreateTime, UpdateTime
+                                    FROM EBookBasic
+                                    WHERE EBookID = '%s' """ % (EBookID)
+        resultList = self.ExecQuery(getbookinfo_sql)
+        if len(resultList) != 0:
+            bookname = resultList[0][0]
+            score = resultList[0][1]
+            bookid = resultList[0][2]
+            img_url = resultList[0][3]
+            uploader = resultList[0][4]
+            create_at = resultList[0][5]
+            updates_at = resultList[0][6]
+
+            bookid = bookid.rstrip(' ')
+            if bookname is not None:
+                bookname = bookname.rstrip(' ')
+            if img_url is not None:
+                img_url = img_url.rstrip(' ')
+            if uploader is not None:
+                uploader = uploader.rstrip(' ')
+            if create_at is not None:
+                create_at = create_at.rstrip(' ')
+            if updates_at is not None:
+                updates_at = updates_at.rstrip(' ')
+
+            return [bookname, score, bookid, img_url, uploader, create_at, updates_at]
         return None
 
     def updateEBookInfo(self, EBookID, name, type, score):
@@ -249,7 +300,8 @@ feached the data we needed.
 #print list1[0]
 #print ms.getEBookInfo(list1[0])
 #ms.updateEBookInfo('002D06F3', 'goodstory', 'Computer Science', 999)
-
+#print ms.getEBookInfo('002D06F3')
+#print ms.getEBookInfo2('002D06F3')
 
 
 
