@@ -204,7 +204,105 @@ class SQLProvider:
                                     SET Name = '%s', Type = '%s', Score = '%s'
                                     WHERE EBookID = '%s' """ % (name, type, score, EBookID)
         self.ExecNonQuery(updatebookinfo_sql)
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Name = '%s', Type = '%s', Score = '%s'
+                                    WHERE EBookID = '%s' """ % (name, type, score, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
         return True
+
+    def modifyEBookName(self, EBookID, newName):
+        updatebookinfo_sql = """UPDATE EBookInfo
+                                    SET Name = '%s'
+                                    WHERE EBookID = '%s' """ % (newName, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql)
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Name = '%s'
+                                    WHERE EBookID = '%s' """ % (newName, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookType(self, EBookID, newType):
+        updatebookinfo_sql = """UPDATE EBookInfo
+                                    SET Type = '%s'
+                                    WHERE EBookID = '%s' """ % (newType, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql)
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Type = '%s'
+                                    WHERE EBookID = '%s' """ % (newType, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookNotes(self, EBookID, newNotes):
+        updatebookinfo_sql = """UPDATE EBookInfo
+                                    SET Notes = '%s'
+                                    WHERE EBookID = '%s' """ % (newNotes, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql)
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Note = '%s'
+                                    WHERE EBookID = '%s' """ % (newNotes, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookScore(self, EBookID, newScore):
+        updatebookinfo_sql = """UPDATE EBookInfo
+                                    SET Score = %d
+                                    WHERE EBookID = '%s' """ % (newScore, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql)
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Score = %d
+                                    WHERE EBookID = '%s' """ % (newScore, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookRate(self, EBookID, newRate):
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Rate = %f
+                                    WHERE EBookID = '%s' """ % (newRate, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookDlTimes(self, EBookID, newTimes):
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET DownloadTimes = %d
+                                    WHERE EBookID = '%s' """ % (newTimes, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookAuthor(self, EBookID, newAuthor):
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Author = '%s'
+                                    WHERE EBookID = '%s' """ % (newAuthor, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookURL(self, EBookID, newURL):
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET URL = '%s'
+                                    WHERE EBookID = '%s' """ % (newURL, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookUploader(self, EBookID, newUploader):
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET Uploader = '%s'
+                                    WHERE EBookID = '%s' """ % (newUploader, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookCreateTime(self, EBookID, newCreateTime):
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET CreateTime = '%s'
+                                    WHERE EBookID = '%s' """ % (newCreateTime, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
+    def modifyEBookUpdateTime(self, EBookID, newUpdateTime):
+        updatebookinfo_sql2 = """UPDATE EBookBasic
+                                    SET UpdateTime = '%s'
+                                    WHERE EBookID = '%s' """ % (newUpdateTime, EBookID)
+        self.ExecNonQuery(updatebookinfo_sql2)
+        return True
+
 
 
 class JSONProvider:
@@ -302,6 +400,18 @@ feached the data we needed.
 #ms.updateEBookInfo('002D06F3', 'goodstory', 'Computer Science', 999)
 #print ms.getEBookInfo('002D06F3')
 #print ms.getEBookInfo2('002D06F3')
+#ms.modifyEBookName('002D06F3', 'awonderfullife')
+#ms.modifyEBookType('002D06F3','Person Stroy')
+#ms.modifyEBookNotes('002D06F3', 'a interesting stroy about cooper')
+#ms.modifyEBookScore('002D06F3', 10)
+#ms.modifyEBookRate('002D06F3', 99.9)
+#ms.modifyEBookDlTimes('002D06F3', 24)
+#ms.modifyEBookAuthor('002D06F3', 'Cooper_YI')
+#ms.modifyEBookURL('002D06F3','www.google.com')
+#ms.modifyEBookUploader('002D06F3','cooper.yyq')
+#ms.modifyEBookCreateTime('002D06F3','2017-6-6 18:02:45')
+#ms.modifyEBookUpdateTime('002D06F3', '2017-7-7 12:03:12')
+
 
 
 
