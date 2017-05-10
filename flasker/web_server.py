@@ -148,20 +148,20 @@ def ebook():
     if session.get('logged_in') is True:
         book_id = request.args.get('id')
         if request.method == 'GET':
-            book = database.getEBookInfo(book_id)  #book [bookname, booktype, booknotes]
+            book = database.getEBookInfo(book_id)
             if book:
                 book_json = {}
                 book_json["name"] = book[0]
-                book_json["score"] = 0
-                book_json["rate"] = 0
-                book_json["description"] = book[2]
-                book_json["download_times"] = 0
-                book_json["author"] = ""
                 book_json["catagory"] = book[1]
-                book_json["img_url"] = ""
-                book_json["uploader"] = ""
-                book_json["created_at"] = ""
-                book_json["updated_at"] = ""
+                book_json["description"] = book[2]
+                book_json["score"] = book[3]
+                book_json["rate"] = book[4]
+                book_json["download_times"] = book[5]
+                book_json["author"] = book[6]
+                book_json["img_url"] = book[7]
+                book_json["uploader"] = book[8]
+                book_json["created_at"] = book[9]
+                book_json["updated_at"] = book[10]
                 return jsonify(book_json)
             return 'SQL error!', 500
         elif request.method == 'POST':
@@ -178,7 +178,7 @@ def download_verify():
     if session.get('logged_in') is True:
         user = database.getUserInfo(session['email'])  #user [username, userid, userphone,userscore]
         book_id = request.args.get('id')
-        book = database.getEBookInfo(book_id)  #book [bookname, booktype, booknotes]
+        book = database.getEBookInfo(book_id)
         result = jsonify({'current_score': user[3]})
         if (user[3] >= book[3]):
             return result
@@ -194,18 +194,19 @@ def List():
         score_low = request.args.get('score_low')
         score_high = request.args.get('score_high')
         page = request.args.get('page')
-        book_list = database.filterEbook(name,catagory,sortby,score_low,score_high,page)
+        bookid_list = database.filterEbook(name,catagory,sortby,score_low,score_high,page)
         book_list_json = {}
         book_list_json["book"] = []
-        for book in book_list:
+        for book_id in bookid_list:
+            book = database.getEBookInfo2(book_id)
             book_json = {}
             book_json["name"] = book[0]
-            book_json["score"] = 0
-            book_json["id"] = ""
-            book_json["img_url"] = ""
-            book_json["uploader"] = ""
-            book_json["created_at"] = ""
-            book_json["updated_at"] = ""
+            book_json["score"] = book[1]
+            book_json["id"] = book[2]
+            book_json["img_url"] = book[3]
+            book_json["uploader"] = book[4]
+            book_json["created_at"] = book[5]
+            book_json["updated_at"] = book[6]
             book_list_json["book"].append(book_json)
         return jsonify(book_list_json)
     return 'not logged in', 400
