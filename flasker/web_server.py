@@ -155,7 +155,7 @@ def ebook():
                 book_json["score"] = 0
                 book_json["rate"] = 0
                 book_json["description"] = book[2]
-                book_json["download_time"] = 0
+                book_json["download_times"] = 0
                 book_json["author"] = ""
                 book_json["catagory"] = book[1]
                 book_json["img_url"] = ""
