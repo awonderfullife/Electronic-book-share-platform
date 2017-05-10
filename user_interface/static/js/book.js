@@ -13,7 +13,7 @@ function getBook() {
             $('#name').html(data.name);
             $('#uploader').html(data.uploader);
             $('#upload-time').html(data.created_at);
-            $('#download-time').html(data.download_time);
+            $('#download-times').html(data.download_times);
             $('#score').html(data.score);
             $('#need_score').html(data.score);
             $('#confirm-score').html(data.score);
@@ -36,7 +36,7 @@ function download_verify() {
             $('#name').html(data.name);
             $('#uploader').html(data.uploader);
             $('#upload-time').html(data.created_at);
-            $('#download-time').html(data.download_time);
+            $('#download-times').html(data.download_times);
             $('#score').html(data.score);
             $('#intro p').html(data.description);
             $('#confirm').modal('show');
