@@ -48,15 +48,21 @@ class SQLProvider:
         self.conn.close()
 
     def add_user(self, id, username, password_hash):
-        s = """INSERT INTO UserLogInfo (Mail, PswdHash, NickName) VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
+        s = """INSERT INTO UserLogInfo
+                    (Mail, PswdHash, NickName)
+                    VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
 
     def set_password(self, id, username, password_hash):
-        s = """INSERT INTO UserLogInfo (Mail, PswdHash, NickName) VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
+        s = """INSERT INTO UserLogInfo
+                    (Mail, PswdHash, NickName)
+                    VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
 
     def get_password_hash(self, id):
-        getpswd_sql = """ SELECT PswdHash FROM UserLogInfo WHERE Mail='%s' """ % (id)
+        getpswd_sql = """ SELECT PswdHash
+                                FROM UserLogInfo
+                                WHERE Mail='%s' """ % (id)
         resultList = self.ExecQuery(getpswd_sql)
         if len(resultList) != 0:
             return resultList[0][0]
@@ -65,7 +71,9 @@ class SQLProvider:
     def get_name_by_id(self, user_id):
         if not user_id:
             return None
-        getname_sql = """ SELECT NickName FROM UserLogInfo WHERE Mail='%s' """ % (user_id)
+        getname_sql = """ SELECT NickName
+                                FROM UserLogInfo
+                                WHERE Mail='%s' """ % (user_id)
         resultList = self.ExecQuery(getname_sql)
         if len(resultList) != 0:
             return resultList[0][0]
@@ -210,6 +218,13 @@ class SQLProvider:
         self.ExecNonQuery(updatebookinfo_sql2)
         return True
 
+    def modifyUserScore(self, Mail, newScore):
+        updatebookinfo_sql = """UPDATE UserLogInfo
+                                    SET Score = %d
+                                    WHERE Mail = '%s' """ % (newScore, Mail)
+        self.ExecNonQuery(updatebookinfo_sql)
+        return True
+
     def modifyEBookName(self, EBookID, newName):
         updatebookinfo_sql = """UPDATE EBookInfo
                                     SET Name = '%s'
@@ -302,6 +317,46 @@ class SQLProvider:
                                     WHERE EBookID = '%s' """ % (newUpdateTime, EBookID)
         self.ExecNonQuery(updatebookinfo_sql2)
         return True
+
+    def addUserRBook(self, Mail, EBookID):
+        add_sql = """INSERT INTO MailEBook
+                    (Mail, EBookID)
+                    VALUES ('%s', '%s')""" % (Mail, EBookID)
+        self.ExecNonQuery(add_sql)
+
+    def checkUserEBook(self, Mail, EBookID):
+        seek_sql = """SELECT Mail, EBookID
+                                    FROM MailEBook
+                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (Mail, EBookID)
+        result_list = self.ExecQuery(seek_sql)
+        if len(result_list) != 0:
+            return True
+        else:
+            return False
+
+    def testFunction(self):
+        test_sql = """SELECT EBookID
+                        From EBookInfo"""
+        result1 = self.ExecQuery(test_sql)
+        test_sql2 = """SELECT EBookID
+                    From EBookBasic"""
+        result2 = self.ExecQuery(test_sql2)
+        index1 = 0
+        index2 = 0
+        count = 0
+        while(index1 < len(result1) and index2 < len(result2)):
+            if (result1[index1][0] > result2[index2][0]): index2 += 1
+            elif (result1[index1][0] == result2[index2][0]):
+                index2 +=1
+                index1 +=1
+            else:
+                index1 += 1
+                count += 1
+        print len(result1), len(result2)
+        print index1, index2, count
+
+
+
 
 
 
@@ -411,7 +466,12 @@ feached the data we needed.
 #ms.modifyEBookUploader('002D06F3','cooper.yyq')
 #ms.modifyEBookCreateTime('002D06F3','2017-6-6 18:02:45')
 #ms.modifyEBookUpdateTime('002D06F3', '2017-7-7 12:03:12')
-
+#ms.testFunction()
+#ms.modifyUserScore('223',18)
+#ms.addUserRBook('223','002D06F3')
+#print ms.checkUserEBook('223','002D06F3')
+#print ms.checkUserEBook('224','002D06F3')
+#print ms.checkUserEBook('223','002D06F4')
 
 
 
