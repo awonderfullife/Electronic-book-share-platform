@@ -179,6 +179,18 @@ def login():
     return 'login error', 400
 
 
+@app.route('/download/<int:book_id>')
+def download(book_id):
+    if session.get('logged_in') is True:
+        email = session['email']
+        if db.user_ebook_access(email, book_id):
+            dirpath = reduce(os.path.join, [app.root_path, 'static', 'Ebook'])
+            filename = db.ebook_filename(book_id)
+            return send_from_directory(dirpath, filename, as_attachment=True)
+        return abort(404)
+    return abort(404)
+
+
 @app.route('/personal')
 def personal():
     return render_template('personal.html')
@@ -251,18 +263,6 @@ def purchased():
         if db.user_ebook_access(email, book_id):
             result['purchased'] = True
     return jsonify(result)
-
-
-@app.route('/api/v1/download/<int:book_id>')
-def download(book_id):
-    if session.get('logged_in') is True:
-        email = session['email']
-        if db.user_ebook_access(email, book_id):
-            dirpath = reduce(os.path.join, [app.root_path, 'static', 'Ebook'])
-            filename = db.ebook_filename(book_id)
-            return send_from_directory(dirpath, filename, as_attachment=True)
-        return abort(404)
-    return abort(404)
 
 
 if __name__ == '__main__':
