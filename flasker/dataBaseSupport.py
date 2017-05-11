@@ -334,7 +334,18 @@ class SQLProvider:
         else:
             return False
 
+    def getEBookFileName(self, EBookID):
+        seek_sql = """SELECT FileName
+                                FROM EBookFile
+                                WHERE EBookID = '%s' """ % (EBookID)
+        result_list = self.ExecQuery(seek_sql)
+        if len(result_list) != 0:
+            return result_list[0][0]
+        else: return None
+
     def testFunction(self):
+        if True:
+            return None
         test_sql = """SELECT EBookID
                         From EBookInfo"""
         result1 = self.ExecQuery(test_sql)
@@ -354,6 +365,22 @@ class SQLProvider:
                 count += 1
         print len(result1), len(result2)
         print index1, index2, count
+
+    def inserDataFunction(self):
+        if True:
+            return None
+        seek_sql = """SELECT EBookID
+                                FROM EBookInfo"""
+        result_list = self.ExecQuery(seek_sql)
+        for item in result_list:
+            try:
+                insert_sql = """INSERT INTO EBookFile
+                            (EBookID, FileName)
+                            VALUES ('%s', 'FFFFFFFF.pdf')""" % (item[0])
+                self.ExecNonQuery(insert_sql)
+            except:
+                print 'oh no!'
+
 
 
 
@@ -466,12 +493,11 @@ feached the data we needed.
 #ms.modifyEBookUploader('002D06F3','cooper.yyq')
 #ms.modifyEBookCreateTime('002D06F3','2017-6-6 18:02:45')
 #ms.modifyEBookUpdateTime('002D06F3', '2017-7-7 12:03:12')
-#ms.testFunction()
 #ms.modifyUserScore('223',18)
 #ms.addUserRBook('223','002D06F3')
 #print ms.checkUserEBook('223','002D06F3')
 #print ms.checkUserEBook('224','002D06F3')
 #print ms.checkUserEBook('223','002D06F4')
-
+#print ms.getEBookFileName('002D06F3')
 
 
