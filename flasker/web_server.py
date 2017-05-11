@@ -2,7 +2,7 @@
 
 import time
 
-from flask import Flask, flash, render_template, request, session,jsonify
+from flask import Flask, flash, render_template, request, session,jsonify,abort
 from flask import send_from_directory
 from werkzeug.security import generate_password_hash
 from config import *
@@ -122,6 +122,19 @@ def index():
     else:
         return render_template('main.html', user=session.get('user'))
 
+
+
+@app.route('/download/<string:book_id>')
+def download(book_id):
+    if session.get('logged_in') is True:
+        email = session['email']
+        if database.checkUserEBook(email,book_id):
+            dirpath = reduce(os.path.join, [app.root_path, 'static', 'Ebook'])
+            filename = database.getEBookFileName(book_id)
+            return send_from_directory(dirpath, filename, as_attachment=True)
+        return abort(404)
+    return abort(404)
+
 @app.route('/api/v1/user', methods=['GET', 'POST'])
 def users():
     if session.get('logged_in') is True:
@@ -173,7 +186,7 @@ def ebook():
             return 'update error',500
     return 'not logged in',400
 
-@app.route('/api/v1/download_verify', methods=['GET'])
+@app.route('/api/v1/purchase_verify', methods=['GET'])
 def download_verify():
     if session.get('logged_in') is True:
         user = database.getUserInfo(session['email'])  #user [username, userid, userphone,userscore]
@@ -210,6 +223,34 @@ def List():
             book_list_json["book"].append(book_json)
         return jsonify(book_list_json)
     return 'not logged in', 400
+
+
+@app.route('/api/v1/purchase', methods=['GET'])
+def purchase():
+    if session.get('logged_in') is True:
+        email = session['email']
+        user = database.getUserInfo(email)  #user [username, userid, userphone,userscore]
+        book_id = request.args.get('id')
+        book = database.getEBookInfo(book_id)
+        result = jsonify({'current_score': user['score']})
+        if (user[3] >= book[3]):
+            database.addUserRBook(email,book_id)
+            database.modifyEBookDlTimes(book_id,book[5] + 1)
+            database.modifyUserScore(email,user[3] - book[3])
+            return result
+        return result, 500
+    return 'not logged in', 400
+
+
+@app.route('/api/v1/purchased')
+def purchased():
+    result = {'purchased': False}
+    if session.get('logged_in') is True:
+        email = session['email']
+        book_id = request.args.get('id')
+        if database.checkUserEBook(email,book_id):
+            result['purchased'] = True
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
