@@ -238,9 +238,13 @@
           <div class="blog-post">
             <div class="dual-btn">
               <!-- Button trigger modal -->
-                <button id="buy" type="button" class="btn btn-success">
+                <button id="purchase" type="button" class="hidden btn btn-success">
                   <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                   购买
+                </button>
+                <button id="download" type="button" class="hidden btn btn-success">
+                  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                  下载
                 </button>
 
                 <!-- Modal -->
@@ -255,7 +259,7 @@
                         确认支付<span id="confirm-score" class="credit">10</span>积分？
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">确认</button>
+                        <button id="confirm-purchase" type="button" class="btn btn-success" data-dismiss="modal">确认</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
                       </div>
                     </div>
