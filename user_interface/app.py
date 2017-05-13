@@ -155,17 +155,23 @@ def book_page(id):
 def book_list():
     return render_template('list.html')
 
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
 
-@app.route('/signup', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def register():
     email = request.form['email']
     username = request.form['username']
     password = request.form['password']
 
     if db.register(email, username, password):
+        session['logged_in'] = True
+        session['email'] = email
+        session['username'] = username
+        session['password'] = password
         return 'register success'
     return 'email is used', 400
-
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -178,6 +184,10 @@ def login():
         return 'login success'
     return 'login error', 400
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session['logged_in'] = False
+    return 'logout success'
 
 @app.route('/download/<int:book_id>')
 def download(book_id):
@@ -268,4 +278,4 @@ def purchased():
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
     db = DataBase()
-    app.run(debug=True, host='0.0.0.0', port=4000)
+    app.run(debug=True, host='localhost', port=4000)

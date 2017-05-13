@@ -37,7 +37,7 @@
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">切换导航</span>
+              <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -48,7 +48,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/">主页<span class="sr-only">(current)</span></a></li>
+              <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 主页<span class="sr-only">(current)</span></a></li>
               <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 学科地图</a></li>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  学科分类<span class="caret"></span></a>
@@ -63,15 +63,6 @@
                       <li><a href="#">理学</a></li>
                   </ul>
               </li>
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>  排序<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                      <li><a href="/list"><li><a href="/list"><span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> 积分从低到高</a></li>
-                      <li><a href="/list"><li><a href="/list"><span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span> 积分从高到低</a></li>
-                      <li><a href="/list"><li><a href="/list"><span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> 下载量从低到高</a></li>
-                      <li><a href="/list"><li><a href="/list"><span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span> 下载量从高到低</a></li>
-                  </ul>
-              </li>
             </ul>
             <form class="navbar-form navbar-left">
               <div class="form-group">
@@ -80,13 +71,13 @@
               <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
+                <!--<li><a href="#"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 联系我们</a></li>-->
               <li id="nav-login" class="hidden">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+                <a href="#" role="button" data-toggle="modal" role="button" data-target="#myModal">
                   <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                   登录
-                </button>
-
+                </a>
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                   <div class="modal-dialog" role="document">
@@ -96,16 +87,16 @@
                         <h4 class="modal-title" id="myModalLabel">请登录</h4>
                       </div>
                       <div class="modal-body">
-                        <form id="login-form" class="form-signin">
-                          <label for="inputEmail" class="sr-only">Email address</label>
-                          <input type="email" name="email" id="inputEmail" class="form-control" placeholder="电子邮箱" required autofocus>
-                          <label for="inputPassword" class="sr-only">Password</label>
-                          <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
-                          <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                        </form>
-                        <div id="login-error" class="alert alert-danger hidden">
+                          <div id="login-error" class="alert alert-danger hidden">
                             <strong>Error!</strong> Login Error
-                        </div>
+                          </div>
+                          <form id="login-form" class="form-signin">
+                              <label for="inputEmail" class="sr-only">Email address</label>
+                              <input type="email" name="email" id="inputEmail" class="form-control" placeholder="电子邮箱" required autofocus>
+                              <label for="inputPassword" class="sr-only">Password</label>
+                              <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                              <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                          </form>
                       </div>
                       <div class="modal-footer">
                         <a class="btn btn-default" href="/signup" role="button">没有帐号？立即注册</a>
@@ -114,8 +105,12 @@
                   </div>
                 </div>
               </li>
-              <li id="nav-username" class="hidden">
-                <a id="username" href="#"></a>
+              <li class="dropdown hidden" id="nav-username">
+                  <a href="#" id="username" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                  <ul class="dropdown-menu">
+                      <li><a id="mypage" href="/personal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a></li>
+                      <li><a id="logout" href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> 注销</a></li>
+                  </ul>
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
