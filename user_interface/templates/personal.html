@@ -74,7 +74,7 @@
                       <li><a href="#">理学</a></li>
                   </ul>
               </li>
-            <li><a href="/">注销</a></li>
+            <li><a id="logout" href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> 注销</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -93,6 +93,7 @@
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">已购项目<span class="sr-only">(current)</span></a></li>
             <li><a href="#">我的收藏</a></li>
+            <li><a href="#">我的上传</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="">消息中心</a></li>
@@ -206,7 +207,11 @@
         <form id="upload-form">
           <div class="form-group">
                 <label for="filename">文件名</label>
-                <input name="name" type="text" class="form-control" id="filename" placeholder="例如《计算机组成》">
+                <input name="name" type="text" class="form-control" id="filename" placeholder="例如“《软件工程指南》”">
+          </div>
+          <div class="form-group">
+                <label for="author">文件名</label>
+                <input name="author" type="text" class="form-control" id="author" placeholder="例如“曹健”">
           </div>
           <div class="form-group">
                 <label for="point">积分值</label>
@@ -227,10 +232,14 @@
           </div>
           <div class="form-group">
               <label for="description">描述</label>
-              <textarea name="description" class="form-control" rows="3" id="description"></textarea>
+              <textarea name="description" class="form-control" rows="3" id="description" placeholder="200字以内"></textarea>
           </div>
           <div class="form-group">
-            <label for="upload-file">PDF文件</label>
+            <label for="book-image">电子书封面图片</label>
+            <input name="book-image" type="file" id="book-image">
+          </div>
+          <div class="form-group">
+            <label for="upload-file">电子书源文件（PDF）</label>
             <input name="upload-file" type="file" id="upload-file">
           </div>
           <div class="progress">
@@ -247,12 +256,33 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+    <button id="upload-success" type="button" class="btn btn-primary btn-lg hidden" data-toggle="modal" data-target="#upload-success-message">
+  Launch demo modal
+</button>
+    <div id="upload-success-message"  class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">来自页面的消息</h4>
+      </div>
+      <div class="modal-body">
+        <p>上传成功！</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/upload.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/login.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

@@ -12,7 +12,7 @@ $('#upload-form').on('submit',(function(e) {
             console.log("success");
             console.log(data);
             $("#upload").modal("hide");
-            alert("上传成功");
+            $('#upload-success').click();
         },
         error: function(data) {
             console.log("error");
