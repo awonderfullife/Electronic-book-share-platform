@@ -100,7 +100,7 @@ function purchased() {
 
 function download() {
     var id = + window.location.pathname.split('/')[2];
-    var url = '/api/v1/download/' + id;
+    var url = '/download/' + id;
     window.open(url, 'Download');
 }
 

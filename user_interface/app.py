@@ -3,6 +3,7 @@ import os
 import random
 from flask import Flask, render_template, request, session, jsonify, abort
 from flask import send_from_directory
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -132,13 +133,29 @@ class DataBase(object):
 
     def user_ebook_access(self, user_id, ebook_id):
         for (uid, bid) in self.user_purchased:
-            print uid, user_id, bid, ebook_id
             if uid == user_id and bid == ebook_id:
                 return True
         return False
 
     def ebook_filename(self, ebook_id):
         return 'test.txt'
+
+    def upload_ebook(self, email, name, catagory, description, score, filename):
+        book = {
+            'name': name,
+            'score': score,
+            'rate': 5,
+            'download_times': 0,
+            'description': description,
+            'author': 'jian cao',
+            'catagory': catagory,
+            'img_url': '/static/image/book_3.jpg',
+            'uploader': email,
+            'created_at': '2017-05-06T13:28:03',
+            'updated_at': '2017-05-07T07:47:03',
+        }
+        key = max(self.books.keys()) + 1
+        self.books[key] = book
 
 
 @app.route('/')
@@ -155,9 +172,11 @@ def book_page(id):
 def book_list():
     return render_template('list.html')
 
+
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
+
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -173,6 +192,7 @@ def register():
         return 'register success'
     return 'email is used', 400
 
+
 @app.route('/login', methods=['POST'])
 def login():
     email = request.form['email']
@@ -184,10 +204,12 @@ def login():
         return 'login success'
     return 'login error', 400
 
+
 @app.route('/logout', methods=['POST'])
 def logout():
     session['logged_in'] = False
     return 'logout success'
+
 
 @app.route('/download/<int:book_id>')
 def download(book_id):
@@ -273,6 +295,25 @@ def purchased():
         if db.user_ebook_access(email, book_id):
             result['purchased'] = True
     return jsonify(result)
+
+
+@app.route('/api/v1/upload', methods=['POST'])
+def upload():
+    if session.get('logged_in') is True:
+        email = session['email']
+        name = request.form['name']
+        catagory = request.form['catagory']
+        description = request.form['description']
+        score = int(request.form['score'])
+        file = request.files.get('upload-file')
+        if file:
+            filename = secure_filename(file.filename)
+            path = reduce(os.path.join, ['static', 'Ebook', filename])
+            file.save(path)
+            db.upload_ebook(email, name, catagory, description, score, filename)
+            return "upload success"
+        return "no file uploaded", 300
+    return "not logged in", 500
 
 
 if __name__ == '__main__':
