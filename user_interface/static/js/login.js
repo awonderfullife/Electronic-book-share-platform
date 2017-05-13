@@ -4,7 +4,7 @@ function showUsername() {
         url: '/api/v1/user',
         success: function(data) {
             console.log(data);
-            $('#username').html(data.username);
+            $('#username').html(data.username+" <span class='caret'></span>");
             $('#nav-username').removeClass('hidden');
             $('#nav-login').addClass('hidden');
         },
@@ -33,6 +33,25 @@ $('#login-form').on('submit', (function(e) {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             $('#login-error').removeClass('hidden');
+        }
+    });
+}));
+
+$('#logout').click((function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/logout',
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            console.log(data);
+            $('#username').html("");
+            $('#nav-username').addClass('hidden');
+            $('#nav-login').removeClass('hidden');
+            window.location.href='/';
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
         }
     });
 }));

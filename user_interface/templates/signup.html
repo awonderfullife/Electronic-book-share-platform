@@ -48,7 +48,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/">主页<span class="sr-only">(current)</span></a></li>
+              <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 主页<span class="sr-only">(current)</span></a></li>
               <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 学科地图</a></li>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  学科分类<span class="caret"></span></a>
@@ -71,11 +71,11 @@
               <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 联系我们</a></li>
-              <li>
+                <!--<li><a href="#"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 联系我们</a></li>-->
+              <li id="nav-login">
                 <!-- Button trigger modal -->
                 <a href="#" role="button" data-toggle="modal" role="button" data-target="#myModal">
-                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> 
+                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                   登录
                 </a>
                 <!-- Modal -->
@@ -87,50 +87,59 @@
                         <h4 class="modal-title" id="myModalLabel">请登录</h4>
                       </div>
                       <div class="modal-body">
-                        <form class="form-signin">
-                          <label for="inputEmail" class="sr-only">Email address</label>
-                          <input type="email" id="inputEmail" class="form-control" placeholder="电子邮箱" required autofocus>
-                          <label for="inputPassword" class="sr-only">Password</label>
-                          <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" value="remember-me"> 记住密码
-                            </label>
+                          <div id="login-error" class="alert alert-danger hidden">
+                            <strong>Error!</strong> Login Error
                           </div>
-                          <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                        </form>
+                          <form id="login-form" class="form-signin">
+                              <label for="inputEmail" class="sr-only">Email address</label>
+                              <input type="email" name="email" id="inputEmail" class="form-control" placeholder="电子邮箱" required autofocus>
+                              <label for="inputPassword" class="sr-only">Password</label>
+                              <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                              <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                          </form>
                       </div>
                       <div class="modal-footer">
-                        <a class="btn btn-default" href="./signup.html" role="button">没有帐号？立即注册</a>
+                        <a class="btn btn-default" href="/signup" role="button">没有帐号？立即注册</a>
                       </div>
                     </div>
                   </div>
                 </div>
               </li>
+              <li class="dropdown hidden" id="nav-username">
+                  <a href="#" id="username" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                  <ul class="dropdown-menu">
+                      <li><a id="mypage" href="/personal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a></li>
+                      <li><a id="logout" href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> 注销</a></li>
+                  </ul>
+              </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
-      </nav> 
-
+      </nav>
     <div class="container">
 
-      <form class="form-signin">
-        <h2 class="form-signin-heading">请填写以下信息完成注册</h2>
+      <form id="signup-form" class="form-signup">
+        <h2 class="form-signup-heading">请填写以下信息完成注册</h2>
         <div class="form-group">
             <label for="username">用户名</label>
-            <input type="username" class="form-control" id="username" placeholder="Username">
+            <input type="username" class="form-control" id="username" name="username" placeholder="Username">
         </div>
         <div class="form-group">
             <label for="email">电子邮箱</label>
-            <input type="email" class="form-control" id="email" placeholder="Email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+            <div class="alert alert-danger hidden" id="used-email" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              The email address has been used!
+            </div>
         </div>
         <div class="form-group">
             <label for="password">密码</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
         </div>
         <div class="form-group">
             <label for="exampleInputFile">头像</label>
-            <input type="file" id="exampleInputFile">
+            <input type="file" id="exampleInputFile" name="exampleInputFile">
             <p class="help-block">请选择头像文件</p>
         </div>
         <div class="checkbox">
@@ -143,12 +152,33 @@
     </form>
     </div> <!-- /container -->
 
+                <a href="#" id="register-success" class="hidden" role="button" data-toggle="modal" role="button" data-target="#modal-success">
+                </a>
+                <!-- Modal -->
+                <div class="modal fade" id="modal-success" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">来自页面的消息</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>注册成功！</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-success" id="back">
+                              <span class="glyphicon glyphicon-check" aria-hidden="true"></span>立即登录/返回首页
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/static/assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/signup.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
