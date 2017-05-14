@@ -71,6 +71,7 @@ class DataBase(object):
         self.users[email] = {
             'username': username,
             'password': password,
+            'score': 1000,
         }
         return True
 
@@ -139,14 +140,22 @@ class DataBase(object):
         self.user_uploaded.append((email, key))
 
     def upload_list(self, email):
-        return [self.books[bid]
-                for (uid, bid) in self.user_uploaded
-                if uid == email]
+        result = []
+        for (uid, bid) in self.user_uploaded:
+            if uid == email:
+                book = self.books[bid].copy()
+                book['book_id'] = bid
+                result.append(book)
+        return result
 
     def purchase_list(self, email):
-        return [self.books[bid]
-                for (uid, bid) in self.user_purchased
-                if uid == email]
+        result = []
+        for (uid, bid) in self.user_purchased:
+            if uid == email:
+                book = self.books[bid].copy()
+                book['book_id'] = bid
+                result.append(book)
+        return result
 
 
 @app.route('/')
