@@ -33,6 +33,7 @@ class DataBase(object):
                 'uploader': '张老师',
                 'created_at': '2017-05-06T13:28:03',
                 'updated_at': '2017-05-07T07:47:03',
+                'filename': 'test.txt',
             },
             2: {
                 'url': '/book/2',
@@ -47,6 +48,7 @@ class DataBase(object):
                 'uploader': '胡老板',
                 'created_at': '2017-05-06T13:28:03',
                 'updated_at': '2017-05-07T07:47:03',
+                'filename': 'test.txt',
             },
             3: {
                 'url': '/book/3',
@@ -61,6 +63,7 @@ class DataBase(object):
                 'uploader': '胡老板',
                 'created_at': '2017-05-06T13:28:03',
                 'updated_at': '2017-05-07T07:47:03',
+                'filename': 'test.txt',
             },
         }
         self.user_purchased = []
@@ -119,7 +122,7 @@ class DataBase(object):
         return False
 
     def ebook_filename(self, ebook_id):
-        return 'test.txt'
+        return self.books[ebook_id]['filename']
 
     def upload_ebook(self, email, name, author, catagory,
                      description, score, filename, image_name):
@@ -137,27 +140,20 @@ class DataBase(object):
             'uploader': email,
             'created_at': '2017-05-06T13:28:03',
             'updated_at': '2017-05-07T07:47:03',
+            'filename': filename,
         }
         self.books[key] = book
         self.user_uploaded.append((email, key))
 
     def upload_list(self, email):
-        result = []
-        for (uid, bid) in self.user_uploaded:
-            if uid == email:
-                book = self.books[bid].copy()
-                book['book_id'] = bid
-                result.append(book)
-        return result
+        return [self.books[bid]
+                for (uid, bid) in self.user_uploaded
+                if uid == email]
 
     def purchase_list(self, email):
-        result = []
-        for (uid, bid) in self.user_purchased:
-            if uid == email:
-                book = self.books[bid].copy()
-                book['book_id'] = bid
-                result.append(book)
-        return result
+        return [self.books[bid]
+                for (uid, bid) in self.user_purchased
+                if uid == email]
 
 
 @app.route('/')

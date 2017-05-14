@@ -1,4 +1,4 @@
-function book_template(img_url, title, book_id) {
+function book_template(img_url, title, url) {
     var html = [
 '<div class="col-xs-6 col-sm-3">',
     '<div class="thumbnail">',
@@ -6,7 +6,7 @@ function book_template(img_url, title, book_id) {
         '<div class="caption">',
             '<h3>' + title + '</h3>',
         '</div>',
-        '<a href="/book/' + book_id + '" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>',
+        '<a href="' + url + '" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>',
             '<span class="credit">',
                 '查看',
             '</span>',
@@ -28,7 +28,7 @@ function showPurchasedBook() {
         success: function(data) {
             console.log(data);
             $.each(data, function(index, book) {
-                var html = book_template(book.img_url, book.name, book.book_id);
+                var html = book_template(book.img_url, book.name, book.url);
                 $("#book-list").append(html);
             });
         },
@@ -46,7 +46,7 @@ function showFavoredBook() {
         success: function(data) {
             console.log(data);
             $.each(data, function(index, book) {
-                var html = book_template(book.img_url, book.name, book.book_id);
+                var html = book_template(book.img_url, book.name, book.url);
                 $("#book-list").append(html);
             });
         },
@@ -64,7 +64,7 @@ function showUploadBook() {
         success: function(data) {
             console.log(data);
             $.each(data, function(index, book) {
-                var html = book_template(book.img_url, book.name, book.book_id);
+                var html = book_template(book.img_url, book.name, book.url);
                 $("#book-list").append(html);
             });
         },
