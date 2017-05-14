@@ -381,6 +381,44 @@ class SQLProvider:
             except:
                 print 'oh no!'
 
+    def add_temp_user(self,vid,info_list):
+        s = """INSERT INTO TempUser
+                    (Vid, Mail, NickName, PswdHash, RegisterTime)
+                    VALUES ('%s', '%s', '%s', '%s', %d)""" % (vid, info_list[0], info_list[1], info_list[2], info_list[3])
+        self.ExecNonQuery(s)
+
+    def get_temp_user(self,vid):
+        if not vid:
+            return None
+        getinfo_sql = """SELECT Mail, NickName, PswdHash, RegisterTime
+                                    FROM TempUser
+                                    WHERE Vid = '%s' """ % (vid)
+        resultList = self.ExecQuery(getinfo_sql)
+        if len(resultList) != 0:
+            mail = resultList[0][0]
+            username = resultList[0][1]
+            pswdhash = resultList[0][2]
+            registertime = resultList[0][3]
+            if mail is not None:
+                mail = mail.rstrip(' ')
+            if username is not None:
+                username = username.rstrip(' ')
+            if pswdhash is not None:
+                pswdhash = pswdhash.rstrip(' ')
+            return [mail, username, pswdhash, registertime]
+        else:
+            return None
+
+    def validate_temp_user(self,vid):
+        if not vid:
+            return None
+        try:
+            delete_sql = """ DELETE FROM TempUser
+                                    WHERE Vid = '%s' """ % (vid)
+            self.ExecNonQuery(delete_sql)
+        except:
+            return None
+
 
 
 
@@ -392,6 +430,7 @@ class JSONProvider:
         self.user_database_file = USER_DATABASE_FILE
         self.verification_database_file = VERIFICATION_DATABASE_FILE
 
+    # finished
     def add_user(self, id, username, password_hash):
         with open(self.user_database_file, 'r+') as f:
             profiles = json.load(f)
@@ -400,6 +439,7 @@ class JSONProvider:
             with open(self.user_database_file, 'w+') as newF:
                 newF.write(json.dumps(profiles))
 
+    # finished
     def set_password(self, id, username, password_hash):
         with open(self.user_database_file, 'r+') as f:
 
@@ -409,6 +449,7 @@ class JSONProvider:
             with open(self.user_database_file, 'w+') as newF:
                 newF.write(json.dumps(profiles))
 
+    # finished
     def get_password_hash(self, id):
         try:
             with open(self.user_database_file) as f:
@@ -422,6 +463,7 @@ class JSONProvider:
             return None
         return None
 
+    # finished
     def get_name_by_id(self, user_id):
         if not user_id:
             return None
@@ -434,6 +476,7 @@ class JSONProvider:
         except:
             return None
         return None
+
 
     def add_temp_user(self,vid,info_list):
         with open(self.verification_database_file, 'r+') as f:
@@ -499,5 +542,7 @@ feached the data we needed.
 #print ms.checkUserEBook('224','002D06F3')
 #print ms.checkUserEBook('223','002D06F4')
 #print ms.getEBookFileName('002D06F3')
-
+#ms.add_temp_user('123456',['c@qq.com', 'cooper', 'HHHH', 123])
+#print ms.get_temp_user('123456')
+#ms.validate_temp_user('123456')
 
