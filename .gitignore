@@ -1,5 +1,5 @@
 *.pyc
 .python-version
 .idea
-user_interface/static/Ebook/*
-!user_interface/static/Ebook/test.txt
+static/Ebook/*
+!static/Ebook/test.txt
