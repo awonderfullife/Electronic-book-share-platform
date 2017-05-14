@@ -17,34 +17,9 @@ class DataBase(object):
                 'score': 1000000,
             }
         }
-        self.lists = [
-            {
-                'url': '/book/1',
-                'img_url': '/static/image/book_1.jpg',
-                'name': '《数据结构：思想与实现》',
-                'description': '本书条理清晰，严格按照线性结构、树形结构、集合结构和图形结构的次序来组织编写...',
-                'score': 100,
-                'download_times': 999,
-            },
-            {
-                'url': '/book/2',
-                'img_url': '/static/image/book_2.jpg',
-                'name': '《数学分析（Ⅰ）》',
-                'description': '本书是为贯彻教育部教学改革精神，实施全英语授课需要而编写，此书书稿在实际教学...',
-                'score': 100,
-                'download_times': 999,
-            },
-            {
-                'url': '/book/3',
-                'img_url': '/static/image/book_3.jpg',
-                'name': '《面向对象软件工程：使用UML、模式与Java》',
-                'description': '本书是为...',
-                'score': 100,
-                'download_times': 999,
-            },
-        ]
         self.books = {
             1: {
+                'url': '/book/1',
                 'name': '《数据结构：思想与实现》',
                 'score': 100,
                 'rate': 5,
@@ -58,6 +33,7 @@ class DataBase(object):
                 'updated_at': '2017-05-07T07:47:03',
             },
             2: {
+                'url': '/book/2',
                 'name': '《数学分析（Ⅰ）》',
                 'score': 100,
                 'rate': 5,
@@ -71,6 +47,7 @@ class DataBase(object):
                 'updated_at': '2017-05-07T07:47:03',
             },
             3: {
+                'url': '/book/3',
                 'name': '《面向对象软件工程：使用UML、模式与Java》',
                 'score': 100,
                 'rate': 5,
@@ -86,6 +63,7 @@ class DataBase(object):
         }
         self.user_purchased = []
         self.user_favored = []
+        self.user_uploaded = []
 
     def register(self, email, username, password):
         if email in self.users:
@@ -123,7 +101,7 @@ class DataBase(object):
         self.users[id]['name'] = name
 
     def hot_books(self, num):
-        return [random.choice(self.lists) for _ in range(num)]
+        return [random.choice(self.books.values()) for _ in range(num)]
 
     def user_purchase_ebook(self, user_id, ebook_id):
         self.books[ebook_id]['download_times'] += 1
@@ -140,22 +118,35 @@ class DataBase(object):
     def ebook_filename(self, ebook_id):
         return 'test.txt'
 
-    def upload_ebook(self, email, name, catagory, description, score, filename):
+    def upload_ebook(self, email, name, author, catagory,
+                     description, score, filename, image_name):
+        key = max(self.books.keys()) + 1
         book = {
+            'url': '/book/' + str(key),
             'name': name,
             'score': score,
             'rate': 5,
             'download_times': 0,
             'description': description,
-            'author': 'jian cao',
+            'author': author,
             'catagory': catagory,
-            'img_url': '/static/image/book_3.jpg',
+            'img_url': '/static/image/' + image_name,
             'uploader': email,
             'created_at': '2017-05-06T13:28:03',
             'updated_at': '2017-05-07T07:47:03',
         }
-        key = max(self.books.keys()) + 1
         self.books[key] = book
+        self.user_uploaded.append((email, key))
+
+    def upload_list(self, email):
+        return [self.books[bid]
+                for (uid, bid) in self.user_uploaded
+                if uid == email]
+
+    def purchase_list(self, email):
+        return [self.books[bid]
+                for (uid, bid) in self.user_purchased
+                if uid == email]
 
 
 @app.route('/')
@@ -302,17 +293,39 @@ def upload():
     if session.get('logged_in') is True:
         email = session['email']
         name = request.form['name']
+        author = request.form['author']
         catagory = request.form['catagory']
         description = request.form['description']
         score = int(request.form['score'])
         file = request.files.get('upload-file')
-        if file:
-            filename = secure_filename(file.filename)
-            path = reduce(os.path.join, ['static', 'Ebook', filename])
-            file.save(path)
-            db.upload_ebook(email, name, catagory, description, score, filename)
+        image = request.files.get('book-image')
+        if file and image:
+            file_name = secure_filename(file.filename)
+            file_path = reduce(os.path.join, ['static', 'Ebook', file_name])
+            file.save(file_path)
+            image_name = secure_filename(image.filename)
+            image_path = reduce(os.path.join, ['static', 'image', image_name])
+            image.save(image_path)
+            db.upload_ebook(email, name, author, catagory,
+                            description, score, file_name, image_name)
             return "upload success"
         return "no file uploaded", 300
+    return "not logged in", 500
+
+
+@app.route('/api/v1/upload_list', methods=['GET'])
+def update_list():
+    if session.get('logged_in') is True:
+        email = session['email']
+        return jsonify(db.upload_list(email))
+    return "not logged in", 500
+
+
+@app.route('/api/v1/purchase_list', methods=['GET'])
+def purchase_list():
+    if session.get('logged_in') is True:
+        email = session['email']
+        return jsonify(db.purchase_list(email))
     return "not logged in", 500
 
 
