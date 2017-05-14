@@ -12,7 +12,7 @@ function showHotBooks() {
                 var book = data[index];
                 div.find('img').attr('src', book.img_url);
                 div.find('h3').html(book.name);
-                div.find('p').html(book.description);
+                div.find('p').html(book.description.slice(0, 30));
                 div.find('a.btn').attr('href', book.url);
                 div.find('span.download').html('下载量' + book.download_times);
                 div.find('span.credit').html(book.score + '积分');

@@ -90,108 +90,24 @@
             <img class="portrait" src="/static/image/portrait.jpg">
               <h3>我的用户名</h3>
           </div>
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">已购项目<span class="sr-only">(current)</span></a></li>
-            <li><a href="#">我的收藏</a></li>
-            <li><a href="#">我的上传</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">消息中心</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">个人信息</a></li>
-            <li><a href="">帮助与支持</a></li>
-          </ul>
+          <div id="sidebar">
+            <ul class="nav nav-sidebar">
+              <li id="purchased-li" class="active"><a href="#">已购项目</a></li>
+              <li id="favored-li"><a href="#">我的收藏</a></li>
+              <li id="uploaded-li"><a href="#">我的上传</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li><a href="">消息中心</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li><a href="">个人信息</a></li>
+              <li><a href="">帮助与支持</a></li>
+            </ul>
+          </div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
-          <h1 class="page-header">已购项目</h1>
-          <div class="row">
-            <div class="col-xs-6 col-sm-3">
-                <div class="thumbnail">
-                  <img src="/static/image/book_1.jpg" alt="Book image">
-                  <div class="caption">
-                    <h3>《数据结构：思想与实现》</h3>
-                      <a href="#" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                    <span class="credit">
-                      下载
-                    </span>
-                  </a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <div class="thumbnail">
-                  <img src="/static/image/book_1.jpg" alt="Book image">
-                  <div class="caption">
-                    <h3>《数据结构：思想与实现》</h3>
-                      <a href="#" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                    <span class="credit">
-                      下载
-                    </span>
-                  </a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <div class="thumbnail">
-                  <img src="/static/image/book_1.jpg" alt="Book image">
-                  <div class="caption">
-                    <h3>《数据结构：思想与实现》</h3>
-                      <a href="#" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                    <span class="credit">
-                      下载
-                    </span>
-                  </a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <div class="thumbnail">
-                  <img src="/static/image/book_1.jpg" alt="Book image">
-                  <div class="caption">
-                    <h3>《数据结构：思想与实现》</h3>
-                      <a href="#" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                    <span class="credit">
-                      下载
-                    </span>
-                  </a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <div class="thumbnail">
-                  <img src="/static/image/book_1.jpg" alt="Book image">
-                  <div class="caption">
-                    <h3>《数据结构：思想与实现》</h3>
-                      <a href="#" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                    <span class="credit">
-                      下载
-                    </span>
-                  </a>
-                  </div>
-                </div>
-            </div>
-          </div>
-          <hr>
-          <nav aria-label="...">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <h1 id="page-header" class="page-header"></h1>
+          <div id="book-list" class="row"></div>
         </div>
       </div>
     </div>
@@ -210,7 +126,7 @@
                 <input name="name" type="text" class="form-control" id="filename" placeholder="例如“《软件工程指南》”">
           </div>
           <div class="form-group">
-                <label for="author">文件名</label>
+                <label for="author">作者</label>
                 <input name="author" type="text" class="form-control" id="author" placeholder="例如“曹健”">
           </div>
           <div class="form-group">
@@ -280,9 +196,10 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/js/jquery-3.2.1.min.js"></script>
-    <script src="/static/js/upload.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/login.js"></script>
+    <script src="/static/js/upload.js"></script>
+    <script src="/static/js/personal.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
