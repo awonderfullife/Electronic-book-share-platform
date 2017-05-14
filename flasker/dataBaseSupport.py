@@ -53,6 +53,16 @@ class SQLProvider:
                     VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
 
+    def removeUser(self, mail):
+        if not mail:
+            return None
+        try:
+            delete_sql = """ DELETE FROM UserLogInfo
+                                    WHERE Mail = '%s' """ % (mail)
+            self.ExecNonQuery(delete_sql)
+        except:
+            return None
+
     def set_password(self, id, username, password_hash):
         s = """INSERT INTO UserLogInfo
                     (Mail, PswdHash, NickName)
@@ -545,4 +555,5 @@ feached the data we needed.
 #ms.add_temp_user('123456',['c@qq.com', 'cooper', 'HHHH', 123])
 #print ms.get_temp_user('123456')
 #ms.validate_temp_user('123456')
+#ms.removeUser('22')
 
