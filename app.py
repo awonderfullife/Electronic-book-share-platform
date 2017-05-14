@@ -5,6 +5,9 @@ from flask import Flask, render_template, request, session, jsonify, abort
 from flask import send_from_directory
 from flask import redirect, url_for
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash
+from emailSupport import send_mail
+from config import *
 
 app = Flask(__name__)
 
@@ -69,16 +72,26 @@ class DataBase(object):
         self.user_purchased = []
         self.user_favored = []
         self.user_uploaded = []
+        self.tmp_user  = {}
 
     def register(self, email, username, password):
         if email in self.users:
             return False
-        self.users[email] = {
-            'username': username,
-            'password': password,
-            'score': 1000,
-        }
+        # self.users[email] = {
+        #     'username': username,
+        #     'password': password,
+        #     'score': 1000,
+        # }
+
+
         return True
+
+    def register_temp_user(self,vid,email,username,password_hash):
+        self.tmp_user[vid] = {
+            'email':email,
+            'username':username,
+            'passwd_hash':password_hash
+        }
 
     def login_verify(self, email, password):
         user = self.users.get(email)
@@ -186,12 +199,39 @@ def register():
     password = request.form['password']
 
     if db.register(email, username, password):
-        session['logged_in'] = True
-        session['email'] = email
-        session['username'] = username
-        session['password'] = password
+        vid = generate_password_hash(email)
+        # passwd_hash = generate_password_hash(password)
+        passwd_hash = password
+        db.register_temp_user(vid,email,username,passwd_hash)
+        url = 'Here is an email for you:\n' + 'localhost' \
+              + ':' + '4000' + '/verify/' + unicode(vid)
+        send_mail(EMAIL_ADDRESS_ADMIN, email, EMAIL_SUBJECT_REGISTER, url)
+        # session['logged_in'] = True
+        # session['email'] = email
+        # session['username'] = username
+        # session['password'] = password
         return 'register success'
     return 'email is used', 400
+
+@app.route('/verify/<vid>')
+def verify(vid=None):
+    print vid
+    if vid is not None:
+        if vid in db.tmp_user:
+            if db.tmp_user[vid]['email'] in db.users:
+                return "User Already Exists"
+            else:
+                email = db.tmp_user[vid]['email']
+                passwd_hash = db.tmp_user[vid]['passwd_hash']
+                username = db.tmp_user[vid]['username']
+                db.users[email] = {'username':username,'password':passwd_hash,
+                                   'score':1000}
+                db.tmp_user.pop(vid)
+                session['logged_in'] = True
+                session['email'] = email
+                return render_template('register_complete.html', username=username)
+
+        else: return 404
 
 
 @app.route('/login', methods=['POST'])
