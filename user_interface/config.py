@@ -6,9 +6,9 @@ SECRET_KEY = 'you-will-never-guess'
 basedir = '.'
 
 PORT = 1028
-LOCAL_HOST = '192.168.0.106'
+LOCAL_HOST = '192.168.0.103'
 
-DATABASE_HOST = '59.78.1.17'
+DATABASE_HOST = '192.168.0.106'
 DATABASE_USER = 'EBook'
 DATABASE_PASSWD = 'ebook'
 DATABASE_NAME = 'ebookdata'

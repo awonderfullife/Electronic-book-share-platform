@@ -184,29 +184,31 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    post_id = unicode(request.form['id'])
+    post_id = unicode(request.form['email'])
     post_password = unicode(request.form['password'])
 
     user = User(post_id)
     result = user.verify_password(post_password)
+    print result
 
     if result:
         session['logged_in'] = True
-        session['user'] = user.to_dict()
+        session['email'] = post_id
+        return 'login success'
     else:
-        flash('wrong password!')
-    return index()
+        return 'wrong password', 400
+
 
 
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
-    return index()
+    return home()
 
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    post_id = unicode(request.form['id'])
+    post_id = unicode(request.form['email'])
     post_password = unicode(request.form['password'])
     post_username = unicode(request.form['username'])
 
@@ -217,18 +219,17 @@ def register():
         t_user.set_password(post_password)
         t_user.add_user()
 
-        url = 'Here is an email for you:\n' + unicode(
-            LOCAL_HOST) + ':' + unicode(
-            PORT) + \
-              '/verify/' + unicode(vid)
+        url = 'Here is an email for you:\n' + unicode(LOCAL_HOST) \
+              + ':' + unicode(PORT) + '/verify/' + unicode(vid)
         send_mail(EMAIL_ADDRESS_ADMIN, post_id, EMAIL_SUBJECT_REGISTER, url)
-        return render_template('success.html')
+        return "register success"
     else:
-        return "User already registered"
+        return 'email is used',400
 
 
 @app.route('/verify/<vid>')
 def verify(vid=None):
+    print vid
     if vid is not None:
         if database.get_temp_user(vid) is None:
             return "404"
@@ -240,10 +241,9 @@ def verify(vid=None):
             if t_user.validate_time(time.time()):
                 new_user = t_user.to_real_user()
                 session['logged_in'] = True
-                session['user'] = new_user.to_dict()
-                user_dict = new_user.to_dict()
+                session['mail'] = new_user.id
                 return render_template('register_complete.html', username=
-                user_dict['username'])
+                new_user.username)
             else:
                 return "Out of Date"
         except KeyError:
@@ -256,13 +256,13 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    if not session.get('logged_in'):
-        return render_template('welcome.html')
-    else:
-        return render_template('main.html', user=session.get('user'))
+# @app.route('/')
+# @app.route('/index')
+# def index():
+#     if not session.get('logged_in'):
+#         return render_template('welcome.html')
+#     else:
+#         return render_template('main.html', user=session.get('user'))
 
 @app.route('/api/v1/hotbooks', methods=['GET'])
 def hot_books():
@@ -288,12 +288,11 @@ def users():
     if session.get('logged_in') is True:
         if request.method == 'GET':
             user = database.getUserInfo(session['email'])  #user [username, userid, userphone,userscore]
+            print user
             if user:
-                user_json = {}
-                user_json["name"] = user[0]
-                user_json["email"] = user[1]
-                user_json["phone"] = user[2]
-                user_json["score"] = user[3]
+                user_json = {user[1]:{"username": user[0], "phone": user[2],
+                                      "score": user[3]}
+                             }
                 return jsonify(user_json)
             return 'SQL error!', 500
         elif request.method == 'POST':
@@ -402,6 +401,5 @@ def purchased():
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
-    app.debug = True
     db = DataBase()
-    app.run(host='localhost', port=PORT)
+    app.run(debug=True,host='localhost', port=PORT)

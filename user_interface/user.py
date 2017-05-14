@@ -10,7 +10,7 @@ from dataBaseSupport import SQLProvider, JSONProvider
 class User(UserMixin):
     def __init__(self, id):
         self.id = id
-        self.database = JSONProvider()
+        self.database = SQLProvider()
         self.username = self.get_username()
         try:
             self.password_hash = self.get_password_hash().rstrip(' ')
@@ -60,7 +60,7 @@ class User(UserMixin):
 class TempUser:
     def __init__(self, vid):
         self.vid = vid
-        self.database = JSONProvider()
+        self.database = SQLProvider()
         self.existence = False
         self.user_info = self.database.get_temp_user(self.vid)
 

@@ -381,6 +381,43 @@ class SQLProvider:
             except:
                 print 'oh no!'
 
+    def add_temp_user(self,vid,info_list):
+        s = """INSERT INTO TempUser
+                    (Vid, Mail, NickName, PswdHash, RegisterTime)
+                    VALUES ('%s', '%s', '%s', '%s', %d)""" % (vid, info_list[0], info_list[1], info_list[2], info_list[3])
+        self.ExecNonQuery(s)
+
+    def get_temp_user(self,vid):
+        if not vid:
+            return None
+        getinfo_sql = """SELECT Mail, NickName, PswdHash, RegisterTime
+                                    FROM TempUser
+                                    WHERE Vid = '%s' """ % (vid)
+        resultList = self.ExecQuery(getinfo_sql)
+        if len(resultList) != 0:
+            mail = resultList[0][0]
+            username = resultList[0][1]
+            pswdhash = resultList[0][2]
+            registertime = resultList[0][3]
+            if mail is not None:
+                mail = mail.rstrip(' ')
+            if username is not None:
+                username = username.rstrip(' ')
+            if pswdhash is not None:
+                pswdhash = pswdhash.rstrip(' ')
+            return [mail, username, pswdhash, registertime]
+        else:
+            return None
+
+    def validate_temp_user(self,vid):
+        if not vid:
+            return None
+        try:
+            delete_sql = """ DELETE FROM TempUser
+                                    WHERE Vid = '%s' """ % (vid)
+            self.ExecNonQuery(delete_sql)
+        except:
+            return None
 
 
 
@@ -475,29 +512,29 @@ feached the data we needed.
 """
 # ms = SQLProvider()
 # print ms.getUserInfo("2441337315@qq.com")
-# ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
-# list1 = ms.filterEbook()
-# print list1[0]
-# print ms.getEBookInfo(list1[0])
-# ms.updateEBookInfo('002D06F3', 'goodstory', 'Computer Science', 999)
-# print ms.getEBookInfo('002D06F3')
-# print ms.getEBookInfo2('002D06F3')
-# ms.modifyEBookName('002D06F3', 'awonderfullife')
-# ms.modifyEBookType('002D06F3','Person Stroy')
-# ms.modifyEBookNotes('002D06F3', 'a interesting stroy about cooper')
-# ms.modifyEBookScore('002D06F3', 10)
-# ms.modifyEBookRate('002D06F3', 99.9)
-# ms.modifyEBookDlTimes('002D06F3', 24)
-# ms.modifyEBookAuthor('002D06F3', 'Cooper_YI')
-# ms.modifyEBookURL('002D06F3','www.google.com')
-# ms.modifyEBookUploader('002D06F3','cooper.yyq')
-# ms.modifyEBookCreateTime('002D06F3','2017-6-6 18:02:45')
-# ms.modifyEBookUpdateTime('002D06F3', '2017-7-7 12:03:12')
-# ms.modifyUserScore('223',18)
-# ms.addUserRBook('223','002D06F3')
-# print ms.checkUserEBook('223','002D06F3')
-# print ms.checkUserEBook('224','002D06F3')
-# print ms.checkUserEBook('223','002D06F4')
-# print ms.getEBookFileName('002D06F3')
+#ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
+#list1 = ms.filterEbook()
+#print list1[0]
+#print ms.getEBookInfo(list1[0])
+#ms.updateEBookInfo('002D06F3', 'goodstory', 'Computer Science', 999)
+#print ms.getEBookInfo('002D06F3')
+#print ms.getEBookInfo2('002D06F3')
+#ms.modifyEBookName('002D06F3', 'awonderfullife')
+#ms.modifyEBookType('002D06F3','Person Stroy')
+#ms.modifyEBookNotes('002D06F3', 'a interesting stroy about cooper')
+#ms.modifyEBookScore('002D06F3', 10)
+#ms.modifyEBookRate('002D06F3', 99.9)
+#ms.modifyEBookDlTimes('002D06F3', 24)
+#ms.modifyEBookAuthor('002D06F3', 'Cooper_YI')
+#ms.modifyEBookURL('002D06F3','www.google.com')
+#ms.modifyEBookUploader('002D06F3','cooper.yyq')
+#ms.modifyEBookCreateTime('002D06F3','2017-6-6 18:02:45')
+#ms.modifyEBookUpdateTime('002D06F3', '2017-7-7 12:03:12')
+#ms.modifyUserScore('223',18)
+#ms.addUserRBook('223','002D06F3')
+#print ms.checkUserEBook('223','002D06F3')
+#print ms.checkUserEBook('224','002D06F3')
+#print ms.checkUserEBook('223','002D06F4')
+#print ms.getEBookFileName('002D06F3')
 
 
