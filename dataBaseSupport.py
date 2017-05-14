@@ -434,13 +434,11 @@ class SQLProvider:
 
 
 
-
 class JSONProvider:
     def __init__(self):
         self.user_database_file = USER_DATABASE_FILE
         self.verification_database_file = VERIFICATION_DATABASE_FILE
 
-    # finished
     def add_user(self, id, username, password_hash):
         with open(self.user_database_file, 'r+') as f:
             profiles = json.load(f)
@@ -449,7 +447,6 @@ class JSONProvider:
             with open(self.user_database_file, 'w+') as newF:
                 newF.write(json.dumps(profiles))
 
-    # finished
     def set_password(self, id, username, password_hash):
         with open(self.user_database_file, 'r+') as f:
 
@@ -459,7 +456,6 @@ class JSONProvider:
             with open(self.user_database_file, 'w+') as newF:
                 newF.write(json.dumps(profiles))
 
-    # finished
     def get_password_hash(self, id):
         try:
             with open(self.user_database_file) as f:
@@ -473,7 +469,6 @@ class JSONProvider:
             return None
         return None
 
-    # finished
     def get_name_by_id(self, user_id):
         if not user_id:
             return None
@@ -486,7 +481,6 @@ class JSONProvider:
         except:
             return None
         return None
-
 
     def add_temp_user(self,vid,info_list):
         with open(self.verification_database_file, 'r+') as f:
@@ -526,8 +520,8 @@ class JSONProvider:
 blow is the code that success run in my computer, and it does modify or
 feached the data we needed.
 """
-#ms = SQLProvider()
-#print ms.getUserInfo("2441337315@qq.com")
+# ms = SQLProvider()
+# print ms.getUserInfo("2441337315@qq.com")
 #ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
 #list1 = ms.filterEbook()
 #print list1[0]
@@ -552,8 +546,5 @@ feached the data we needed.
 #print ms.checkUserEBook('224','002D06F3')
 #print ms.checkUserEBook('223','002D06F4')
 #print ms.getEBookFileName('002D06F3')
-#ms.add_temp_user('123456',['c@qq.com', 'cooper', 'HHHH', 123])
-#print ms.get_temp_user('123456')
-#ms.validate_temp_user('123456')
-#ms.removeUser('22')
+
 
