@@ -27,3 +27,4 @@ $(document).ready(function () {
   });
   showHotBooks();
 });
+userManager.run();

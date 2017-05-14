@@ -109,3 +109,4 @@ purchased();
 $('#purchase').on('click', purchase_verify);
 $('#download').on('click', download);
 $('#confirm-purchase').on('click', purchase);
+userManager.run();

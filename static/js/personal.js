@@ -71,9 +71,16 @@ function showUploadBook() {
     });
 }
 
+userManager.addLoginHook(function(user) {
+    $('#username').html(user.username);
+});
+
 showPurchasedBook();
+
 $("#purchased-li").click(showPurchasedBook);
+
 $("#favored-li").click(showFavoredBook);
+
 $("#uploaded-li").click(showUploadBook);
 
 $('#upload-form').on('submit',(function(e) {
@@ -147,3 +154,5 @@ function page_num() {
     ].join("\n");
     return html;
 }
+
+userManager.run();

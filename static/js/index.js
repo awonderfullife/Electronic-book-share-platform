@@ -22,3 +22,4 @@ function showHotBooks() {
 }
 
 showHotBooks();
+userManager.run();

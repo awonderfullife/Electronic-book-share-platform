@@ -3,6 +3,7 @@ import os
 import random
 from flask import Flask, render_template, request, session, jsonify, abort
 from flask import send_from_directory
+from flask import redirect, url_for
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -175,7 +176,10 @@ def book_list():
 
 @app.route('/signup')
 def signup():
-    return render_template('signup.html')
+    if session.get('logged_in') is True:
+        return redirect(url_for('home'))
+    else:
+        return render_template('signup.html')
 
 
 @app.route('/register', methods=['POST'])
@@ -225,7 +229,10 @@ def download(book_id):
 
 @app.route('/personal')
 def personal():
-    return render_template('personal.html')
+    if session.get('logged_in') is True:
+        return render_template('personal.html')
+    else:
+        return redirect(url_for('home'))
 
 
 @app.route('/api/v1/user', methods=['GET', 'POST'])
