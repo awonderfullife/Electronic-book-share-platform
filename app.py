@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 
+
 class DataBase(object):
     def __init__(self):
         self.users = {
