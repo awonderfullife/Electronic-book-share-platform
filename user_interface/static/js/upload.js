@@ -1,7 +1,25 @@
 $('#upload-form').on('submit',(function(e) {
     e.preventDefault();
     var formData = new FormData(this);
+    var progressBar = $("#progress-bar");
     $.ajax({
+        xhr: function() {
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener("progress", function(evt) {
+                console.log(evt);
+                if (evt.lengthComputable) {
+                    var percentComplete = evt.loaded / evt.total;
+                    percentComplete = parseInt(percentComplete * 100);
+                    progressBar.css('width', percentComplete + '%');
+                    progressBar.html(percentComplete + '%');
+                    console.log(percentComplete);
+                    if (percentComplete === 100) {
+                        progressBar.html("Success!");
+                    }
+                }
+            }, false);
+            return xhr;
+        },
         type: 'POST',
         url: "/api/v1/upload",
         data: formData,
