@@ -25,6 +25,9 @@ ALLOWED_VERIFY_DURATION = 100
 EMAIL_ADDRESS_ADMIN = "SE_demo@163.com"
 EMAIL_USERNAME = "SE_demo"
 EMAIL_PASSWORD = "better123"
+#EMAIL_ADDRESS_ADMIN = "sjtu_ieee_se@163.com"
+#EMAIL_USERNAME = "sjtu_ieee_se"
+#EMAIL_PASSWORD = "sjtu1234"
 EMAIL_SENDER = "Admin"
 
 EMAIL_SUBJECT_REGISTER = 'EBook Share Platform Registration'
