@@ -17,9 +17,8 @@ body {
 }
 
 .navbar .navbar-img {
-  height: 100%;
+  height: 20px;
 }
-
 
 .form-signin {
   max-width: 330px;
