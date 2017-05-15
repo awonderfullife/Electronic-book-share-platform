@@ -7,6 +7,7 @@ from flask import redirect, url_for
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash
 from emailSupport import send_mail
+from datetime import datetime
 from config import *
 
 app = Flask(__name__)
@@ -35,7 +36,8 @@ class DataBase(object):
                 'uploader': '张老师',
                 'created_at': '2017-05-06T13:28:03',
                 'updated_at': '2017-05-07T07:47:03',
-                'filename': 'test.txt',
+                'storename': 'test.txt',
+                'filename': '数据结构.pdf',
             },
             2: {
                 'url': '/book/2',
@@ -50,7 +52,8 @@ class DataBase(object):
                 'uploader': '胡老板',
                 'created_at': '2017-05-06T13:28:03',
                 'updated_at': '2017-05-07T07:47:03',
-                'filename': 'test.txt',
+                'storename': 'test.txt',
+                'filename': '数学分析.pdf',
             },
             3: {
                 'url': '/book/3',
@@ -65,7 +68,8 @@ class DataBase(object):
                 'uploader': '胡老板',
                 'created_at': '2017-05-06T13:28:03',
                 'updated_at': '2017-05-07T07:47:03',
-                'filename': 'test.txt',
+                'storename': 'test.txt',
+                'filename': '面向对象软件工程.pdf',
             },
         }
         self.user_purchased = []
@@ -133,11 +137,8 @@ class DataBase(object):
                 return True
         return False
 
-    def ebook_filename(self, ebook_id):
-        return self.books[ebook_id]['filename']
-
     def upload_ebook(self, email, name, author, catagory,
-                     description, score, filename, image_name):
+                     description, score, storename, image_name, filename):
         key = max(self.books.keys()) + 1
         book = {
             'url': '/book/' + str(key),
@@ -153,9 +154,11 @@ class DataBase(object):
             'created_at': '2017-05-06T13:28:03',
             'updated_at': '2017-05-07T07:47:03',
             'filename': filename,
+            'storename': storename,
         }
         self.books[key] = book
         self.user_uploaded.append((email, key))
+        print self.books
 
     def upload_list(self, email):
         return [self.books[bid]
@@ -272,9 +275,14 @@ def download(book_id):
     if session.get('logged_in') is True:
         email = session['email']
         if db.user_ebook_access(email, book_id):
+            book = db.book_by_id(int(book_id))
             dirpath = reduce(os.path.join, [app.root_path, 'static', 'Ebook'])
-            filename = db.ebook_filename(book_id)
-            return send_from_directory(dirpath, filename, as_attachment=True)
+            storename = book['storename']
+            filename = book['filename']
+            return send_from_directory(dirpath,
+                                       storename,
+                                       as_attachment=True,
+                                       attachment_filename=filename)
         return abort(404)
     return abort(404)
 
@@ -368,14 +376,15 @@ def upload():
         file = request.files.get('upload-file')
         image = request.files.get('book-image')
         if file and image:
-            file_name = secure_filename(file.filename)
+            file_name = secure_filename(str(datetime.now()) + file.filename)
             file_path = reduce(os.path.join, ['static', 'Ebook', file_name])
             file.save(file_path)
-            image_name = secure_filename(image.filename)
+            image_name = secure_filename(str(datetime.now()) + image.filename)
             image_path = reduce(os.path.join, ['static', 'image', image_name])
             image.save(image_path)
             db.upload_ebook(email, name, author, catagory,
-                            description, score, file_name, image_name)
+                            description, score, file_name,
+                            image_name, file.filename.encode('utf-8'))
             return "upload success"
         return "no file uploaded", 300
     return "not logged in", 500
