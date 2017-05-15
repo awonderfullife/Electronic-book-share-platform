@@ -18,6 +18,10 @@ footer {
   background-color: #eee;
 }
 
+.navbar .navbar-img {
+  height: 100%;
+}
+
 /* Form base class */
 .form-signin {
   max-width: 330px;
