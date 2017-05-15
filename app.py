@@ -12,7 +12,6 @@ from config import *
 app = Flask(__name__)
 
 
-
 class DataBase(object):
     def __init__(self):
         self.users = {
@@ -72,7 +71,7 @@ class DataBase(object):
         self.user_purchased = []
         self.user_favored = []
         self.user_uploaded = []
-        self.tmp_user  = {}
+        self.tmp_user = {}
 
     def register(self, email, username, password):
         if email in self.users:
@@ -86,11 +85,11 @@ class DataBase(object):
 
         return True
 
-    def register_temp_user(self,vid,email,username,password_hash):
+    def register_temp_user(self, vid, email, username, password_hash):
         self.tmp_user[vid] = {
-            'email':email,
-            'username':username,
-            'passwd_hash':password_hash
+            'email': email,
+            'username': username,
+            'passwd_hash': password_hash
         }
 
     def login_verify(self, email, password):
@@ -169,6 +168,18 @@ class DataBase(object):
                 if uid == email]
 
 
+def getContent():
+    contentList = ['Here is a email for you:',
+                   'You have a new email for your TomeExchange Account:',
+                   'Please click this link to get a new TomeExchange '
+                   'Account:',
+                   'Welcome to TomeExchange! Click this link to verify your '
+                   'account:',
+                   'Now, join the best EBook sharing Platform:'
+                   ]
+    return random.sample(contentList, 1)
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -202,16 +213,17 @@ def register():
         vid = generate_password_hash(email)
         # passwd_hash = generate_password_hash(password)
         passwd_hash = password
-        db.register_temp_user(vid,email,username,passwd_hash)
-        url = 'Here is an email for you:\n' + 'localhost' \
-              + ':' + '4000' + '/verify/' + unicode(vid)
-        send_mail(EMAIL_ADDRESS_ADMIN, email, EMAIL_SUBJECT_REGISTER, url)
+        db.register_temp_user(vid, email, username, passwd_hash)
+        content = getContent()[0] + '\n' + 'localhost' \
+                  + ':' + '4000' + '/verify/' + unicode(vid)
+        send_mail(EMAIL_ADDRESS_ADMIN, email, EMAIL_SUBJECT_REGISTER, content)
         # session['logged_in'] = True
         # session['email'] = email
         # session['username'] = username
         # session['password'] = password
         return 'register success'
     return 'email is used', 400
+
 
 @app.route('/verify/<vid>')
 def verify(vid=None):
@@ -224,14 +236,17 @@ def verify(vid=None):
                 email = db.tmp_user[vid]['email']
                 passwd_hash = db.tmp_user[vid]['passwd_hash']
                 username = db.tmp_user[vid]['username']
-                db.users[email] = {'username':username,'password':passwd_hash,
-                                   'score':1000}
+                db.users[email] = {'username': username,
+                                   'password': passwd_hash,
+                                   'score': 1000}
                 db.tmp_user.pop(vid)
                 session['logged_in'] = True
                 session['email'] = email
-                return render_template('register_complete.html', username=username)
+                return render_template('register_complete.html',
+                                       username=username)
 
-        else: return 404
+        else:
+            return 404
 
 
 @app.route('/login', methods=['POST'])
