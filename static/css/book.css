@@ -25,6 +25,10 @@ h6, .h6 {
   background-color: #eee;
 }
 
+.navbar .navbar-img {
+  height: 100%;
+}
+
 .form-signin {
   max-width: 330px;
   margin: 0 auto;
