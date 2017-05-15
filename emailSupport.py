@@ -7,7 +7,7 @@ import config
 
 
 def send_mail(me, you, subject, content):
-    msg = MIMEText(content)
+    msg = MIMEText(content, 'html')
 
     msg['Subject'] = subject
     msg['From'] = me

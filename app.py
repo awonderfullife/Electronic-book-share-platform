@@ -158,7 +158,6 @@ class DataBase(object):
         }
         self.books[key] = book
         self.user_uploaded.append((email, key))
-        print self.books
 
     def upload_list(self, email):
         return [self.books[bid]
@@ -217,20 +216,18 @@ def register():
         # passwd_hash = generate_password_hash(password)
         passwd_hash = password
         db.register_temp_user(vid, email, username, passwd_hash)
-        content = getContent()[0] + '\n' + 'localhost' \
-                  + ':' + '4000' + '/verify/' + unicode(vid)
+        content = ('<html>' +
+                   getContent()[0] +
+                   '<br><a href="http://localhost:4000/verify/' +
+                   unicode(vid) +
+                   '">click here</a></html>')
         send_mail(EMAIL_ADDRESS_ADMIN, email, EMAIL_SUBJECT_REGISTER, content)
-        # session['logged_in'] = True
-        # session['email'] = email
-        # session['username'] = username
-        # session['password'] = password
         return 'register success'
     return 'email is used', 400
 
 
 @app.route('/verify/<vid>')
 def verify(vid=None):
-    print vid
     if vid is not None:
         if vid in db.tmp_user:
             if db.tmp_user[vid]['email'] in db.users:
@@ -245,11 +242,11 @@ def verify(vid=None):
                 db.tmp_user.pop(vid)
                 session['logged_in'] = True
                 session['email'] = email
-                return render_template('register_complete.html',
-                                       username=username)
-
+                return redirect(url_for('home'))
         else:
-            return 404
+            abort(404)
+    else:
+        return abort(404)
 
 
 @app.route('/login', methods=['POST'])
