@@ -40,6 +40,7 @@ function purchase_verify() {
             $('#score').html(data.score);
             $('#intro p').html(data.description);
             $('#confirm').modal('show');
+            $('#myscore').html(data.current_score);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
@@ -62,6 +63,7 @@ function purchase() {
             'id': id,
         },
         success: function(data) {
+            console.log(data);
             getBook();
             $('#download').removeClass('hidden');
             $('#purchase').addClass('hidden');
