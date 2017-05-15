@@ -65,7 +65,7 @@ function purchase() {
             getBook();
             $('#download').removeClass('hidden');
             $('#purchase').addClass('hidden');
-            alert('购买成功');
+            $('#purchased').click();
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);

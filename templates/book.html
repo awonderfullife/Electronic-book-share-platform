@@ -76,7 +76,7 @@
                 <!--<li><a href="#"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 联系我们</a></li>-->
               <li id="nav-login" class="hidden">
                 <!-- Button trigger modal -->
-                <a href="#" role="button" data-toggle="modal" role="button" data-target="#myModal">
+                <a href="#" id="login" role="button" data-toggle="modal" role="button" data-target="#myModal">
                   <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                   登录
                 </a>
@@ -306,7 +306,7 @@
                           <h3>尚未登陆！</h3>
                       </div>
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-success">
+                          <button type="button" class="btn btn-success"  id="register" data-dismiss="modal">
                               <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> 立即登录
                           </button>
                           <button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -415,6 +415,30 @@
       </div><!-- /.row -->
 
     </div><!-- /.container -->
+
+      <button type="button" id="purchased" class="btn btn-info hidden" data-toggle="modal" data-target="#purchase-success">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  收藏
+      </button>
+
+      <div class="modal fade" id="purchase-success" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">来自页面的消息</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>购买成功！</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-success"  id="register" data-dismiss="modal">
+                              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 确定
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
     <footer class="blog-footer">
       <p>Powered by <a href="/">电子书在线分享平台</a></p>

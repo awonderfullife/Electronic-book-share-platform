@@ -78,5 +78,10 @@ userManager.addLogoutHook(function() {
     window.location.href='/';
 });
 
+$('#register').click((function(e) {
+    e.preventDefault();
+    $('#login').click();
+}));
+
 $('#login-form').on('submit', userManager.login);
 $('#logout').click(userManager.logout);
