@@ -191,6 +191,9 @@ def home():
 def book_page(id):
     return render_template('book.html')
 
+@app.route('/map')
+def show_map():
+    return render_template('map.html')
 
 @app.route('/list')
 def book_list():
@@ -406,4 +409,4 @@ def purchase_list():
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
     db = DataBase()
-    app.run(debug=True, host='localhost', port=4000)
+    app.run(debug=True, host='localhost', port=8088)
