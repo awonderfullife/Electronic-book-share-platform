@@ -1,6 +1,6 @@
 function drawBubbleGraph(root) {
 
-	var diameter = 800, margin = 0;
+	var diameter = 800, margin = 20;
 
 	var pack = d3.layout.pack().padding(2).size(
 			[ diameter - margin, diameter - margin ]).value(function(d) {
@@ -34,8 +34,11 @@ function drawBubbleGraph(root) {
 					}).style("fill", function(d) {
 				return color(d.weight);
 			}).on("click", function(d) {
-				if (focus !== d)
-					zoom(d), d3.event.stopPropagation();
+				console.log(focus, d, d.children);
+				if (focus !== d) {
+					zoom(d);
+					d3.event.stopPropagation();
+				}
 			});
 
 	var text = svg.selectAll("text").data(nodes).enter().append("text").attr(
