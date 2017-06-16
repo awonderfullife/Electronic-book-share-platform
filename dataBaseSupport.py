@@ -52,6 +52,7 @@ class SQLProvider:
                     (Mail, PswdHash, NickName)
                     VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
         self.ExecNonQuery(s)
+        return True
 
     def removeUser(self, mail):
         if not mail:
@@ -60,14 +61,23 @@ class SQLProvider:
             delete_sql = """ DELETE FROM UserLogInfo
                                     WHERE Mail = '%s' """ % (mail)
             self.ExecNonQuery(delete_sql)
+            return True
         except:
-            return None
+            return False
 
-    def set_password(self, id, username, password_hash):
-        s = """INSERT INTO UserLogInfo
-                    (Mail, PswdHash, NickName)
-                    VALUES ('%s', '%s', '%s')""" % (id, password_hash, username)
+    def set_password(self, id, password_hash):
+        s = """UPDATE UserLogInfo
+                    SET PswdHash = '%s'
+                    WHERE Mail  = '%s' """ % (password_hash, id)
         self.ExecNonQuery(s)
+        return True
+
+    def set_username(self, id, username):
+        s = """UPDATE UserLogInfo
+                    SET NickName = '%s'
+                    WHERE Mail  = '%s' """ % (username, id)
+        self.ExecNonQuery(s)
+        return True
 
     def get_password_hash(self, id):
         getpswd_sql = """ SELECT PswdHash
@@ -75,7 +85,7 @@ class SQLProvider:
                                 WHERE Mail='%s' """ % (id)
         resultList = self.ExecQuery(getpswd_sql)
         if len(resultList) != 0:
-            return resultList[0][0]
+            return resultList[0][0].rstrip(' ')
         return None
 
     def get_name_by_id(self, user_id):
@@ -86,7 +96,7 @@ class SQLProvider:
                                 WHERE Mail='%s' """ % (user_id)
         resultList = self.ExecQuery(getname_sql)
         if len(resultList) != 0:
-            return resultList[0][0]
+            return resultList[0][0].rstrip(' ')
         return None
 
     def getUserInfo(self, userID):
@@ -105,7 +115,7 @@ class SQLProvider:
             if username is not None:
                 username = username.rstrip(' ')
             if userphone is not None:
-                userphone.rstrip()
+                userphone.rstrip(' ')
             return [username, userid, userphone, userscore]
         return None
 
@@ -142,7 +152,7 @@ class SQLProvider:
         resultlist = self.ExecQuery(fliter_sql)
         listresult = []
         for item in resultlist:
-            listresult.append(item[0])
+            listresult.append(item[0].rstrip(' '))
         # print listresult
         return listresult
 
@@ -328,30 +338,120 @@ class SQLProvider:
         self.ExecNonQuery(updatebookinfo_sql2)
         return True
 
-    def addUserRBook(self, Mail, EBookID):
-        add_sql = """INSERT INTO MailEBook
-                    (Mail, EBookID)
-                    VALUES ('%s', '%s')""" % (Mail, EBookID)
-        self.ExecNonQuery(add_sql)
 
-    def checkUserEBook(self, Mail, EBookID):
+    def add_user_purchased_EBook(self, user_id, book_id):
+        add_sql = """INSERT INTO UserPurchased
+                    (Mail, EBookID)
+                    VALUES ('%s', '%s')""" % (user_id, book_id)
+        self.ExecNonQuery(add_sql)
+        return True
+
+    def check_user_purchased_EBook(self, user_id, book_id):
         seek_sql = """SELECT Mail, EBookID
-                                    FROM MailEBook
-                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (Mail, EBookID)
+                                    FROM UserPurchased
+                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (user_id, book_id)
         result_list = self.ExecQuery(seek_sql)
         if len(result_list) != 0:
             return True
         else:
             return False
 
-    def getEBookFileName(self, EBookID):
-        seek_sql = """SELECT FileName
-                                FROM EBookFile
-                                WHERE EBookID = '%s' """ % (EBookID)
+    def delete_user_purchased_EBook(self, user_id, book_id):
+        try:
+            delete_sql = """ DELETE FROM UserPurchased
+                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (user_id, book_id)
+            self.ExecNonQuery(delete_sql)
+            return True
+        except:
+            return False
+
+    def get_user_purchased_EBook_list(self, user_id):
+        if not user_id:
+            return None
+        getinfo_sql = """SELECT EBookID
+                                    FROM UserPurchased
+                                    WHERE Mail = '%s' """ % (user_id)
+        resultList = self.ExecQuery(getinfo_sql)
+        listresult = []
+        for item in resultList:
+            listresult.append(item[0].rstrip(' '))
+        return listresult
+
+    def add_user_favored_EBook(self, user_id, book_id):
+        add_sql = """INSERT INTO UserFavored
+                    (Mail, EBookID)
+                    VALUES ('%s', '%s')""" % (user_id, book_id)
+        self.ExecNonQuery(add_sql)
+        return True
+
+    def check_user_favored_EBook(self, user_id, book_id):
+        seek_sql = """SELECT Mail, EBookID
+                                    FROM UserFavored
+                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (user_id, book_id)
         result_list = self.ExecQuery(seek_sql)
         if len(result_list) != 0:
-            return result_list[0][0]
-        else: return None
+            return True
+        else:
+            return False
+
+    def delete_user_favored_EBook(self, user_id, book_id):
+        try:
+            delete_sql = """ DELETE FROM UserFavored
+                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (user_id, book_id)
+            self.ExecNonQuery(delete_sql)
+            return True
+        except:
+            return False
+
+    def get_user_favored_EBook_list(self, user_id):
+        if not user_id:
+            return None
+        getinfo_sql = """SELECT EBookID
+                                    FROM UserFavored
+                                    WHERE Mail = '%s' """ % (user_id)
+        resultList = self.ExecQuery(getinfo_sql)
+        listresult = []
+        for item in resultList:
+            listresult.append(item[0].rstrip(' '))
+        return listresult
+
+    def add_user_uploaded_EBook(self, user_id, book_id):
+        add_sql = """INSERT INTO UserUploaded
+                    (Mail, EBookID)
+                    VALUES ('%s', '%s')""" % (user_id, book_id)
+        self.ExecNonQuery(add_sql)
+        return True
+
+    def check_user_uploaded_EBook(self, user_id, book_id):
+        seek_sql = """SELECT Mail, EBookID
+                                    FROM UserUploaded
+                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (user_id, book_id)
+        result_list = self.ExecQuery(seek_sql)
+        if len(result_list) != 0:
+            return True
+        else:
+            return False
+
+    def delete_user_uploaded_EBook(self, user_id, book_id):
+        try:
+            delete_sql = """ DELETE FROM UserUploaded
+                                    WHERE Mail = '%s' AND EBookID = '%s' """ % (user_id, book_id)
+            self.ExecNonQuery(delete_sql)
+            return True
+        except:
+            return False
+
+    def get_user_uploaded_EBook_list(self, user_id):
+        if not user_id:
+            return None
+        getinfo_sql = """SELECT EBookID
+                                    FROM UserUploaded
+                                    WHERE Mail = '%s' """ % (user_id)
+        resultList = self.ExecQuery(getinfo_sql)
+        listresult = []
+        for item in resultList:
+            listresult.append(item[0].rstrip(' '))
+        return listresult
 
     def testFunction(self):
         if True:
@@ -391,11 +491,42 @@ class SQLProvider:
             except:
                 print 'oh no!'
 
+    def add_EBook_FileStoredName(self, EBookID, filename, storedname):
+        s = """INSERT INTO EBookFile
+                    (EBookID, FileName, StoreName)
+                    VALUES ('%s', '%s', '%s')""" % (EBookID, filename, storedname)
+        self.ExecNonQuery(s)
+        return True
+
+    def delete_EBook_FileStoredName(self,EBookID):
+        if not EBookID:
+            return None
+        try:
+            delete_sql = """ DELETE FROM EBookFile
+                                    WHERE EBookID = '%s' """ % (EBookID)
+            self.ExecNonQuery(delete_sql)
+            return True
+        except:
+            return False
+
+    def get_EBook_FileStoredName(self, EBookID):
+        seek_sql = """SELECT FileName, StoreName
+                                FROM EBookFile
+                                WHERE EBookID = '%s' """ % (EBookID)
+        result_list = self.ExecQuery(seek_sql)
+        if len(result_list) != 0:
+            return [result_list[0][0].rstrip(' '), result_list[0][1].rstrip(' ')]
+        else: return []
+
+
+
+
     def add_temp_user(self,vid,info_list):
         s = """INSERT INTO TempUser
                     (Vid, Mail, NickName, PswdHash, RegisterTime)
                     VALUES ('%s', '%s', '%s', '%s', %d)""" % (vid, info_list[0], info_list[1], info_list[2], info_list[3])
         self.ExecNonQuery(s)
+        return True
 
     def get_temp_user(self,vid):
         if not vid:
