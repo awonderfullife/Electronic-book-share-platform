@@ -4,6 +4,7 @@ import random
 from flask import Flask, render_template, request, session, jsonify, abort
 from flask import send_from_directory
 from flask import redirect, url_for
+from flask import json
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash
 from emailSupport import send_mail
@@ -410,6 +411,13 @@ def purchase_list():
         email = session['email']
         return jsonify(db.purchase_list(email))
     return "not logged in", 500
+
+
+@app.route('/api/v1/subject_map', methods=['GET'])
+def subj_map_data():
+    json_path = reduce(os.path.join, [app.root_path, 'static', 'data.json'])
+    data = json.load(open(json_path))
+    return jsonify(data)
 
 
 if __name__ == '__main__':
