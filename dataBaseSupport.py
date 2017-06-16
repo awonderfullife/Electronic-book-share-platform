@@ -27,7 +27,7 @@ class SQLProvider:
             raise (NameError, "no dataset informations")
         self.conn = pymssql.connect(host=self.host, user=self.user,
                                     password=self.pwd, database=self.db,
-                                    charset="utf8")
+                                    charset="UTF-8")
         cur = self.conn.cursor()
         if not cur:
             raise (NameError, "connection failed")
@@ -690,7 +690,7 @@ class JSONProvider:
 blow is the code that success run in my computer, and it does modify or
 feached the data we needed.
 """
-# ms = SQLProvider()
+#ms = SQLProvider()
 # print ms.getUserInfo("2441337315@qq.com")
 #ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
 #list1 = ms.filterEbook()
@@ -716,5 +716,9 @@ feached the data we needed.
 #print ms.checkUserEBook('224','002D06F3')
 #print ms.checkUserEBook('223','002D06F4')
 #print ms.getEBookFileName('002D06F3')
+#ms.add_user('233','你好啊','ASUEWFVASFABL')
+#ms.removeUser('233')
+#print ms.getUserInfo('233')
+
 
 
