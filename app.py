@@ -294,6 +294,12 @@ def personal():
     else:
         return redirect(url_for('home'))
 
+@app.route('/personal_info')
+def personal_info():
+    if session.get('logged_in') is True:
+        return render_template('personal_info.html')
+    else:
+        return redirect(url_for('home'))
 
 @app.route('/api/v1/user', methods=['GET', 'POST'])
 def users():

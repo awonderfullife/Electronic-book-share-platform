@@ -49,20 +49,6 @@
   pointer-events: none;
 }
 
-#question {
-	border: inset 2px gray;
-	padding: 5px;
-	background: #ffe;
-	font-family: Verdana;
-}
-
-#answer {
-	border: outset 2px gray;
-	padding: 5px;
-	background: #ffc;
-	font-family: Verdana;
-}
-
 span.placeholder {
 	background: #f00;
 	font-color: white;

@@ -38,6 +38,13 @@ body {
 .sidebar {
   display: none;
 }
+
+.credit{
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
+}
+
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
