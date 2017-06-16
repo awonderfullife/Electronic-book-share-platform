@@ -92,7 +92,7 @@
           </div>
           <div id="sidebar">
             <ul class="nav nav-sidebar">
-              <li id="purchased-li" class="active"><a href="#">已购项目</a></li>
+              <li id="purchased-li"><a href="#">已购项目</a></li>
               <li id="favored-li"><a href="#">我的收藏</a></li>
               <li id="uploaded-li"><a href="#">我的上传</a></li>
             </ul>
@@ -100,14 +100,60 @@
               <li><a href="">消息中心</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-              <li><a href="/personal_info">个人信息</a></li>
+              <li class="active"><a href="">个人信息</a></li>
               <li><a href="">帮助与支持</a></li>
             </ul>
           </div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
           <h1 id="page-header" class="page-header"></h1>
-          <div id="book-list" class="row"></div>
+          <div id="personal-info" class="col-md-6 col-sm-9 col-md-9">
+            <form class="form-horizontal">
+              <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-2">邮箱</label>
+                <div class="col-sm-10">
+                  <p class="form-control-static">
+                    admin@sjtu.edu.cn
+                  </p>
+                </div>
+              </div>
+              <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-2" for="inputUsername">用户名</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputUsername"  placeholder="我的用户名" aria-describedby="inputSuccess2Status">
+                  <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                </div>
+              </div>
+              <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-2" for="inputPassword">密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="inputPassword"  placeholder="Password" aria-describedby="inputSuccess2Status">
+                  <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                </div>
+              </div>
+              <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-2">我的积分</label>
+                <div class="col-sm-10">
+                  <p class="form-control-static">
+                    <span id="score" class="credit">100</span>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group has-success has-feedback">
+                <label for="exampleInputFile" class="control-label col-sm-2">头像文件</label>
+                <div class="col-sm-10">
+                  <input type="file" id="exampleInputFile">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success btn">保存</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -197,7 +243,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/login.js"></script>
-    <script src="/static/js/personal.js"></script>
+    <!--<script src="/static/js/personal.js"></script>-->
     <script src="/static/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/assets/js/vendor/holder.min.js"></script>
