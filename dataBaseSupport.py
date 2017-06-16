@@ -124,8 +124,6 @@ class SQLProvider:
                 userphone = userphone.rstrip(' ')
             if userid is not None:
                 userid = userid.rstrip(' ')
-            if userscore is not None:
-                userscore = userscore.rstrip(' ')
             return [username, userid, userphone, userscore]
         return None
 
