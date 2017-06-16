@@ -191,6 +191,9 @@ def home():
 def book_page(id):
     return render_template('book.html')
 
+@app.route('/map')
+def show_map():
+    return render_template('map.html')
 
 @app.route('/list')
 def book_list():
@@ -291,6 +294,12 @@ def personal():
     else:
         return redirect(url_for('home'))
 
+@app.route('/personal_info')
+def personal_info():
+    if session.get('logged_in') is True:
+        return render_template('personal_info.html')
+    else:
+        return redirect(url_for('home'))
 
 @app.route('/api/v1/user', methods=['GET', 'POST'])
 def users():
@@ -406,4 +415,4 @@ def purchase_list():
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
     db = DataBase()
-    app.run(debug=True, host='localhost', port=4000)
+    app.run(debug=True, host='localhost', port=8088)
