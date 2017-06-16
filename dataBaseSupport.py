@@ -85,7 +85,10 @@ class SQLProvider:
                                 WHERE Mail='%s' """ % (id)
         resultList = self.ExecQuery(getpswd_sql)
         if len(resultList) != 0:
-            return resultList[0][0].rstrip(' ')
+            pswdhash = resultList[0][0]
+            if pswdhash is not None:
+                pswdhash = pswdhash.rstrip(' ')
+            return pswdhash
         return None
 
     def get_name_by_id(self, user_id):
@@ -96,7 +99,10 @@ class SQLProvider:
                                 WHERE Mail='%s' """ % (user_id)
         resultList = self.ExecQuery(getname_sql)
         if len(resultList) != 0:
-            return resultList[0][0].rstrip(' ')
+            nickname = resultList[0][0]
+            if nickname is not None:
+                nickname = nickname.rstrip(' ')
+            return nickname
         return None
 
     def getUserInfo(self, userID):
@@ -115,7 +121,11 @@ class SQLProvider:
             if username is not None:
                 username = username.rstrip(' ')
             if userphone is not None:
-                userphone.rstrip(' ')
+                userphone = userphone.rstrip(' ')
+            if userid is not None:
+                userid = userid.rstrip(' ')
+            if userscore is not None:
+                userscore = userscore.rstrip(' ')
             return [username, userid, userphone, userscore]
         return None
 
@@ -124,6 +134,19 @@ class SQLProvider:
                                     SET NickName = '%s', PhoneNum = '%s'
                                     WHERE Mail = '%s' """ % (userName,phoneNum,userID)
         self.ExecNonQuery(updateuserinfo_sql)
+        return True
+
+    def add_ebook(self, id, name, score,rate,download_times,description, author,category,img_url,uploader,created_time,updated_time):
+        add_sql_info = """INSERT INTO EBookInfo
+                    (EBookID,Name,Type, Notes, Score)
+                    VALUES ('%s', '%s', '%s', '%s', %d)""" % (id, name, category, description, score)
+
+        add_sql_basic = """INSERT INTO EBookBasic
+                    (EBookID,Name,Type,Note, Score, Rate, DownloadTimes,Author, URL, Uploader, CreateTime, UpdateTime)
+                    VALUES ('%s', '%s','%s','%s', %d, %f, %d, '%s', '%s', '%s','%s','%s')""" % (id, name,category, description, score, rate, download_times, author, img_url, uploader, created_time, updated_time)
+
+        self.ExecNonQuery(add_sql_info)
+        self.ExecNonQuery(add_sql_basic)
         return True
 
     def filterEbook(self, name="", catagory="", sortby="EBookID", score_low=0,score_high=1000,page=0):
@@ -152,7 +175,10 @@ class SQLProvider:
         resultlist = self.ExecQuery(fliter_sql)
         listresult = []
         for item in resultlist:
-            listresult.append(item[0].rstrip(' '))
+            mes = item[0]
+            if mes is not None:
+                mes = mes.rstrip(' ')
+            listresult.append(mes)
         # print listresult
         return listresult
 
@@ -374,7 +400,10 @@ class SQLProvider:
         resultList = self.ExecQuery(getinfo_sql)
         listresult = []
         for item in resultList:
-            listresult.append(item[0].rstrip(' '))
+            mes = item[0]
+            if mes is not None:
+                mes = mes.rstrip(' ')
+            listresult.append(mes)
         return listresult
 
     def add_user_favored_EBook(self, user_id, book_id):
@@ -412,7 +441,10 @@ class SQLProvider:
         resultList = self.ExecQuery(getinfo_sql)
         listresult = []
         for item in resultList:
-            listresult.append(item[0].rstrip(' '))
+            mes = item[0]
+            if mes is not None:
+                mes = mes.rstrip(' ')
+            listresult.append(mes)
         return listresult
 
     def add_user_uploaded_EBook(self, user_id, book_id):
@@ -450,7 +482,10 @@ class SQLProvider:
         resultList = self.ExecQuery(getinfo_sql)
         listresult = []
         for item in resultList:
-            listresult.append(item[0].rstrip(' '))
+            mes = item[0]
+            if mes is not None:
+                mes = mes.rstrip(' ')
+            listresult.append(mes)
         return listresult
 
     def testFunction(self):
@@ -515,7 +550,13 @@ class SQLProvider:
                                 WHERE EBookID = '%s' """ % (EBookID)
         result_list = self.ExecQuery(seek_sql)
         if len(result_list) != 0:
-            return [result_list[0][0].rstrip(' '), result_list[0][1].rstrip(' ')]
+            filename = result_list[0][0]
+            storename = result_list[0][1]
+            if filename is not None:
+                filename = filename.rstrip(' ')
+            if storename is not None:
+                storename = storename.rstrip(' ')
+            return [filename, storename]
         else: return []
 
 
