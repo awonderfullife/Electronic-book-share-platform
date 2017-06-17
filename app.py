@@ -417,6 +417,35 @@ def purchase_list():
 def subj_map_data():
     json_path = reduce(os.path.join, [app.root_path, 'static', 'data.json'])
     data = json.load(open(json_path))
+    cs = [
+        {
+            'name': '数据结构：思想与实现',
+            'size': 2,
+            'url': '/book/1',
+        },
+        {
+            'name': '数学分析',
+            'size': 4,
+            'url': '/book/2',
+        },
+        {
+            'name': '软件工程',
+            'size': 5,
+            'url': '/book/3',
+        },
+    ]
+    for c in data['children']:
+        if c['name'] == u'工学':
+            for cc in c['children']:
+                if cc['name'] == u'计算机科学与技术':
+                    for ccc in cc['children']:
+                        if ccc['name'] == u'计算机软件与理论':
+                            ccc.pop('url')
+                            ccc.pop('size')
+                            ccc['children'] = cs
+                            break
+                    break
+            break
     return jsonify(data)
 
 

@@ -54,7 +54,8 @@ function draw_map(data) {
         })
         .on("click", function (d) {
             if (!d.children) {
-                window.open("https://baidu.com");
+                console.log(d);
+                window.open(d.data.url);
             } else if (focus !== d) {
                 zoom(d);
             }
