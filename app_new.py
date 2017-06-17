@@ -23,7 +23,6 @@ class DataBase(object):
         self.sql_db = SQLProvider()
 
     def register(self, email, username, password):
-        print self.sql_db.getUserInfo(email) is None
         return self.sql_db.getUserInfo(email) is None
 
     def register_temp_user(self, vid, email, username, password_hash):
@@ -108,13 +107,11 @@ class DataBase(object):
         }
 
     def hot_books(self, num):
-        ebook_id_list = self.sql_db.filterEbook(page=0)[0:num]
+        ebook_id_list = self.sql_db.filterEbook()[0:num]
         res = []
         for id in ebook_id_list:
             res.append(self.get_ebook_info(id))
-        print res
         return res
-        # return [random.choice(self.books.values()) for _ in range(num)]
 
     def user_purchase_ebook(self, user_id, ebook_id):
         ebook_info = self.book_by_id(ebook_id)
@@ -146,16 +143,12 @@ class DataBase(object):
                               uploader=email,
                               created_time='2017-05-06T13:28:03',
                               updated_time='2017-05-07T07:47:03')
-        print 'add_ebook sucess'
 
         self.sql_db.add_EBook_FileStoredName(EBookID=book_id,
                                              filename=filename,
                                              storedname=storename)
-        print 'add_ebook_filename success'
 
         self.sql_db.add_user_uploaded_EBook(email, book_id)
-
-        print 'add_user success'
 
     def upload_list(self, email):
         id_list = self.sql_db.get_user_uploaded_EBook_list(email)
@@ -173,6 +166,21 @@ class DataBase(object):
             ebook_list.append(self.get_ebook_info(id))
         return ebook_list
 
+    def get_map_book_list(self,book_type):
+        if book_type=='cs':
+            book_id_list = self.sql_db.filterEbook(catagory='计算机')
+
+            book_list=[]
+            for book_id in book_id_list:
+                book_info = self.get_ebook_info(book_id)
+                book_list.append(
+                    {
+                        'name':book_info['name'],
+                        'size':book_info['score'],
+                        'url':book_info['url']
+                    }
+                )
+            return book_list
 
 def getContent():
     contentList = ['Here is a email for you:',
@@ -414,6 +422,22 @@ def purchase_list():
 def subj_map_data():
     json_path = reduce(os.path.join, [app.root_path, 'static', 'data.json'])
     data = json.load(open(json_path))
+
+    cs = db.get_map_book_list('cs')
+    print cs
+    for c in data['children']:
+        if c['name'] == u'工学':
+            for cc in c['children']:
+                if cc['name'] == u'计算机科学与技术':
+                    for ccc in cc['children']:
+                        if ccc['name'] == u'计算机软件与理论':
+                            ccc.pop('url')
+                            ccc.pop('size')
+                            ccc['children'] = cs
+                            break
+                    break
+            break
+
     return jsonify(data)
 
 if __name__ == '__main__':
