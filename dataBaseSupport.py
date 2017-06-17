@@ -149,6 +149,19 @@ class SQLProvider:
         self.ExecNonQuery(add_sql_basic)
         return True
 
+    def delete_ebook(self, id):
+        try:
+            delete_sql_info = """ DELETE FROM EBookInfo
+                                    WHERE EBookID = '%s' """ % (id)
+            delete_sql_basic = """ DELETE FROM EBookBasic
+                                    WHERE EBookID = '%s' """ % (id)
+            self.ExecNonQuery(delete_sql_info)
+            self.ExecNonQuery(delete_sql_basic)
+            return True
+        except:
+            return False
+
+
     def filterEbook(self, name="", catagory="", sortby="EBookID", score_low=0,score_high=1000):
         fliter_sql = ""
         if name != "" and catagory == "":
@@ -391,6 +404,16 @@ class SQLProvider:
         except:
             return False
 
+    def delete_user_purchased_ebookid(self,book_id):
+        try:
+            delete_sql = """ DELETE FROM UserPurchased
+                                    EBookID = '%s' """ % (book_id)
+            self.ExecNonQuery(delete_sql)
+            return True
+        except:
+            return False
+
+
     def get_user_purchased_EBook_list(self, user_id):
         if not user_id:
             return None
@@ -432,6 +455,15 @@ class SQLProvider:
         except:
             return False
 
+    def delete_user_favored_ebookid(self,book_id):
+        try:
+            delete_sql = """ DELETE FROM UserFavored
+                                    EBookID = '%s' """ % (book_id)
+            self.ExecNonQuery(delete_sql)
+            return True
+        except:
+            return False
+
     def get_user_favored_EBook_list(self, user_id):
         if not user_id:
             return None
@@ -446,6 +478,8 @@ class SQLProvider:
                 mes = mes.rstrip(' ')
             listresult.append(mes)
         return listresult
+
+
 
     def add_user_uploaded_EBook(self, user_id, book_id):
         add_sql = """INSERT INTO UserUploaded
@@ -468,6 +502,15 @@ class SQLProvider:
         try:
             delete_sql = """ DELETE FROM UserUploaded
                                     WHERE Mail = '%s' AND EBookID = '%s' """ % (user_id, book_id)
+            self.ExecNonQuery(delete_sql)
+            return True
+        except:
+            return False
+
+    def delete_user_uploaded_ebookid(self,book_id):
+        try:
+            delete_sql = """ DELETE FROM UserUploaded
+                                    EBookID = '%s' """ % (book_id)
             self.ExecNonQuery(delete_sql)
             return True
         except:
