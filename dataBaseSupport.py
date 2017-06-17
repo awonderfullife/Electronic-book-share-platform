@@ -137,12 +137,14 @@ class SQLProvider:
     def add_ebook(self, id, name, score,rate,download_times,description, author,category,img_url,uploader,created_time,updated_time):
         add_sql_info = """INSERT INTO EBookInfo
                     (EBookID,Name,Type, Notes, Score)
-                    VALUES ('%s', '%s', '%s', '%s', %d)""" % (id, name, category, description, score)
+                    VALUES (N'%s', N'%s', N'%s', N'%s', %d)""" % (id, name,
+                                                               category, description, score)
 
         add_sql_basic = """INSERT INTO EBookBasic
                     (EBookID,Name,Type,Note, Score, Rate, DownloadTimes,Author, URL, Uploader, CreateTime, UpdateTime)
-                    VALUES ('%s', '%s','%s','%s', %d, %f, %d, '%s', '%s', '%s','%s','%s')""" % (id, name,category, description, score, rate, download_times, author, img_url, uploader, created_time, updated_time)
-
+                    VALUES (N'%s', N'%s',N'%s',N'%s', %d, %f, %d, N'%s', 
+                    N'%s', N'%s',N'%s',N'%s')""" % (id, name,category,
+                                                  description, score, rate, download_times, author, img_url, uploader, created_time, updated_time)
         self.ExecNonQuery(add_sql_info)
         self.ExecNonQuery(add_sql_basic)
         return True
@@ -448,7 +450,7 @@ class SQLProvider:
     def add_user_uploaded_EBook(self, user_id, book_id):
         add_sql = """INSERT INTO UserUploaded
                     (Mail, EBookID)
-                    VALUES ('%s', '%s')""" % (user_id, book_id)
+                    VALUES (N'%s', N'%s')""" % (user_id, book_id)
         self.ExecNonQuery(add_sql)
         return True
 
@@ -527,7 +529,8 @@ class SQLProvider:
     def add_EBook_FileStoredName(self, EBookID, filename, storedname):
         s = """INSERT INTO EBookFile
                     (EBookID, FileName, StoreName)
-                    VALUES ('%s', '%s', '%s')""" % (EBookID, filename, storedname)
+                    VALUES (N'%s', N'%s', N'%s')""" % (EBookID, filename,
+                                                     storedname)
         self.ExecNonQuery(s)
         return True
 
