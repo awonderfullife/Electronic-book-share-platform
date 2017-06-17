@@ -407,7 +407,7 @@ class SQLProvider:
     def delete_user_purchased_ebookid(self,book_id):
         try:
             delete_sql = """ DELETE FROM UserPurchased
-                                    EBookID = '%s' """ % (book_id)
+                                    WHERE EBookID = '%s' """ % (book_id)
             self.ExecNonQuery(delete_sql)
             return True
         except:
@@ -458,7 +458,7 @@ class SQLProvider:
     def delete_user_favored_ebookid(self,book_id):
         try:
             delete_sql = """ DELETE FROM UserFavored
-                                    EBookID = '%s' """ % (book_id)
+                                    WHERE EBookID = '%s' """ % (book_id)
             self.ExecNonQuery(delete_sql)
             return True
         except:
@@ -510,7 +510,7 @@ class SQLProvider:
     def delete_user_uploaded_ebookid(self,book_id):
         try:
             delete_sql = """ DELETE FROM UserUploaded
-                                    EBookID = '%s' """ % (book_id)
+                                    WHERE EBookID = '%s' """ % (book_id)
             self.ExecNonQuery(delete_sql)
             return True
         except:
