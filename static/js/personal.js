@@ -83,73 +83,75 @@ $("#favored-li").click(showFavoredBook);
 
 $("#uploaded-li").click(showUploadBook);
 
-$('#upload-form').on('submit',(function(e) {
-    e.preventDefault();
-    var formData = new FormData(this);
-    var progressBar = $("#progress-bar");
-    $.ajax({
-        xhr: function() {
-            var xhr = new window.XMLHttpRequest();
-            xhr.upload.addEventListener("progress", function(evt) {
-                if (evt.lengthComputable) {
-                    var percentComplete = evt.loaded / evt.total;
-                    percentComplete = parseInt(percentComplete * 100);
-                    progressBar.css('width', percentComplete + '%');
-                    progressBar.html(percentComplete + '%');
-                    if (percentComplete === 100) {
-                        progressBar.html("Success!");
+$('#upload-form').validator().on('submit',(function(e) {
+    if (!e.isDefaultPrevented()) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var progressBar = $("#progress-bar");
+        $.ajax({
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        percentComplete = parseInt(percentComplete * 100);
+                        progressBar.css('width', percentComplete + '%');
+                        progressBar.html(percentComplete + '%');
+                        if (percentComplete === 100) {
+                            progressBar.html("Success!");
+                        }
                     }
+                }, false);
+                return xhr;
+            },
+            type: 'POST',
+            url: "/api/v1/upload",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log("success");
+                console.log(data);
+                if ($("#uploaded-li").hasClass("active")) {
+                    showUploadBook();
                 }
-            }, false);
-            return xhr;
-        },
-        type: 'POST',
-        url: "/api/v1/upload",
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            console.log("success");
-            console.log(data);
-            if ($("#uploaded-li").hasClass("active")) {
-                showUploadBook();
+                $("#upload").modal("hide");
+                $('#upload-success').click();
+                $("#upload-form input").val("");
+                $("#upload-form textarea").val("");
+                progressBar.css('width', '0%');
+                progressBar.html('0%');
+            },
+            error: function(data) {
+                console.log("error");
+                console.log(data);
             }
-            $("#upload").modal("hide");
-            $('#upload-success').click();
-            $("#upload-form input").val("");
-            $("#upload-form textarea").val("");
-            progressBar.css('width', '0%');
-            progressBar.html('0%');
-        },
-        error: function(data) {
-            console.log("error");
-            console.log(data);
-        }
-    });
+        });
+    }
 }));
 
 function page_num() {
     html = [
 '<hr>',
 '<nav aria-label="...">',
-  '<ul class="pagination">',
-    '<li>',
-      '<a href="#" aria-label="Previous">',
+        '<ul class="pagination">',
+        '<li>',
+        '<a href="#" aria-label="Previous">',
         '<span aria-hidden="true">&laquo;</span>',
-      '</a>',
-    '</li>',
-    '<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>',
-    '<li><a href="#">2</a></li>',
-    '<li><a href="#">3</a></li>',
-    '<li><a href="#">4</a></li>',
-    '<li><a href="#">5</a></li>',
-    '<li>',
-      '<a href="#" aria-label="Next">',
+        '</a>',
+        '</li>',
+        '<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>',
+        '<li><a href="#">2</a></li>',
+        '<li><a href="#">3</a></li>',
+        '<li><a href="#">4</a></li>',
+        '<li><a href="#">5</a></li>',
+        '<li>',
+        '<a href="#" aria-label="Next">',
         '<span aria-hidden="true">&raquo;</span>',
-      '</a>',
-    '</li>',
-  '</ul>',
+        '</a>',
+        '</li>',
+        '</ul>',
 '</nav>',
     ].join("\n");
     return html;

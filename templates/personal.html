@@ -119,19 +119,25 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">上传文件</h4>
       </div>
-      <div class="modal-body">
-        <form id="upload-form">
+      <form id="upload-form" data-toggle="validator">
+        <div class="modal-body">
           <div class="form-group">
                 <label for="filename">文件名</label>
-                <input name="name" type="text" class="form-control" id="filename" placeholder="例如“《软件工程指南》”">
+                <input name="name" type="text" class="form-control" id="filename" placeholder="例如“《软件工程指南》”"
+                data-error="请输入文件名" required>
+                <div class="help-block with-errors"></div>
           </div>
           <div class="form-group">
                 <label for="author">作者</label>
-                <input name="author" type="text" class="form-control" id="author" placeholder="例如“曹健”">
+                <input name="author" type="text" class="form-control" id="author" placeholder="例如“曹健”"
+                data-error="请输入作者" required>
+                <div class="help-block with-errors"></div>
           </div>
           <div class="form-group">
                 <label for="point">积分值</label>
-                <input name="score" type="text" class="form-control" id="point" placeholder="0~100">
+                <input name="score" type="number" min="0" max="100" class="form-control" id="point" placeholder="0~100"
+                data-error="积分值在0到100之间" required>
+                <div class="help-block with-errors"></div>
           </div>
           <div class="form-group">
                 <label for="category">类别</label>
@@ -148,26 +154,35 @@
           </div>
           <div class="form-group">
               <label for="description">描述</label>
-              <textarea name="description" class="form-control" rows="3" id="description" placeholder="200字以内"></textarea>
+              <textarea name="description" class="form-control" rows="3" id="description" placeholder="200字以内"
+              data-error="请输入简介" required></textarea>
+              <div class="help-block with-errors"></div>
           </div>
           <div class="form-group">
             <label for="book-image">电子书封面图片</label>
-            <input name="book-image" type="file" id="book-image">
+            <input name="book-image" type="file" id="book-image"
+            data-error="请选择一张图片" required>
+            <div class="help-block with-errors"></div>
           </div>
           <div class="form-group">
             <label for="upload-file">电子书源文件（PDF）</label>
-            <input name="upload-file" type="file" id="upload-file">
+            <input name="upload-file" type="file" id="upload-file"
+            data-error="请选择一本电子书" required>
+            <div class="help-block with-errors"></div>
           </div>
           <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%; min-width: 2em;">
               0%
             </div>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">确认</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">确认</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          </div>
+        </div>
+      </form>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -197,8 +212,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/login.js"></script>
-    <script src="/static/js/personal.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/validator.js"></script>
+    <script src="/static/js/personal.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
