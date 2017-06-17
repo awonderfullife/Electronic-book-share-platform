@@ -54,7 +54,6 @@ function draw_map(data) {
         })
         .on("click", function (d) {
             if (!d.children) {
-                console.log(d);
                 window.open(d.data.url);
             } else if (focus !== d) {
                 zoom(d);
@@ -62,7 +61,7 @@ function draw_map(data) {
             d3.event.stopPropagation();
         });
 
-    g.selectAll("text")
+    var text = g.selectAll("text")
         .data(nodes)
         .enter()
         .append("text")
@@ -129,6 +128,9 @@ function draw_map(data) {
         });
         circle.attr("r", function (d) {
             return d.r * k;
+        });
+        text.style('font-size', function (d) {
+            return parseInt(d.r * k / 2.5) + 'px';
         });
     }
 }
