@@ -13,9 +13,6 @@ DATABASE_USER = 'EBook'
 DATABASE_PASSWD = 'ebook'
 DATABASE_NAME = 'ebookdata'
 
-USER_DATABASE_FILE = 'profiles.json'
-VERIFICATION_DATABASE_FILE = 'verify.json'
-
 UPLOAD_FOLDER = os.path.join(os.path.curdir, os.path.sep, 'static', 'Ebook',
                              os.path.sep)
 
