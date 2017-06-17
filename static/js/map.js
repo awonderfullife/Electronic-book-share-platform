@@ -130,7 +130,19 @@ function draw_map(data) {
             return d.r * k;
         });
         text.style('font-size', function (d) {
-            return parseInt(d.r * k / 2.5) + 'px';
+            return parseInt(d.r * k / 3) + 'px';
+        });
+        text.each(function() {
+            var txt = d3.select(this),
+                lines = (txt.text().match(/.{1,5}/g) || []).reverse(),
+                line;
+            txt.text(null);
+            if (line = lines.pop()) {
+                txt.append('tspan').text(line).attr('x', 0);
+            }
+            while (line = lines.pop()) {
+                txt.append('tspan').text(line).attr('x', 0).attr('dy', parseInt(txt.style('font-size')));
+            }
         });
     }
 }
