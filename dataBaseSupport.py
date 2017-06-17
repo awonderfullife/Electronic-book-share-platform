@@ -149,28 +149,28 @@ class SQLProvider:
         self.ExecNonQuery(add_sql_basic)
         return True
 
-    def filterEbook(self, name="", catagory="", sortby="EBookID", score_low=0,score_high=1000,page=0):
+    def filterEbook(self, name="", catagory="", sortby="EBookID", score_low=0,score_high=1000):
         fliter_sql = ""
         if name != "" and catagory == "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Name = '%s' AND Score >= '%d' AND Score <= '%d' AND Page >= '%d'
-                            ORDER BY '%s' DESC """ % (name,score_low, score_high, page, sortby)
+                            WHERE Name = '%s' AND Score >= '%d' AND Score <= '%d'
+                            ORDER BY '%s' DESC """ % (name,score_low, score_high, sortby)
         if name != "" and catagory != "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Name = '%s'AND Type='%s' AND Score >= '%d' AND Score <= '%d' AND Page >= '%d'
-                            ORDER BY '%s' DESC """ % (name,catagory, score_low, score_high, page, sortby)
+                            WHERE Name = '%s'AND Type='%s' AND Score >= '%d' AND Score <= '%d'
+                            ORDER BY '%s' DESC """ % (name,catagory, score_low, score_high, sortby)
         if name == "" and catagory == "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Score >= '%d' AND Score <= '%d' AND Page >= '%d'
-                            ORDER BY '%s' DESC """ % (score_low, score_high, page, sortby)
+                            WHERE Score >= '%d' AND Score <= '%d'
+                            ORDER BY '%s' DESC """ % (score_low, score_high, sortby)
         if name == "" and catagory != "":
             fliter_sql = """SELECT EBookID
                             From EBookInfo
-                            WHERE Type='%s' AND Score >= '%d' AND Score <= '%d' AND Page >= '%d'
-                            ORDER BY '%s' DESC """ % (catagory, score_low, score_high, page, sortby)
+                            WHERE Type='%s' AND Score >= '%d' AND Score <= '%d'
+                            ORDER BY '%s' DESC """ % (catagory, score_low, score_high, sortby)
         # print filter_sql
         resultlist = self.ExecQuery(fliter_sql)
         listresult = []
@@ -693,7 +693,7 @@ class JSONProvider:
 blow is the code that success run in my computer, and it does modify or
 feached the data we needed.
 """
-#ms = SQLProvider()
+ms = SQLProvider()
 # print ms.getUserInfo("2441337315@qq.com")
 #ms.updateUserInfo("2441337315@qq.com","cooper.yi","15900438037")
 #list1 = ms.filterEbook()
@@ -722,6 +722,12 @@ feached the data we needed.
 #ms.add_user('233','你好啊','ASUEWFVASFABL')
 #ms.removeUser('233')
 #print ms.getUserInfo('233')
+"""print lst[0][0]
+print lst[0][1]
+print lst[0][2]
+print lst[0][3]"""
+
+
 
 
 
