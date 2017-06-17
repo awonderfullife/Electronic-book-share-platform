@@ -154,8 +154,10 @@ class DataBase(object):
         id_list = self.sql_db.get_user_uploaded_EBook_list(email)
         ebook_list = list()
         for id in id_list:
-            ebook_list.append(self.get_ebook_info(id))
-
+            try:
+                ebook_list.append(self.get_ebook_info(id))
+            except TypeError:
+                continue
         return ebook_list
 
 
@@ -163,7 +165,10 @@ class DataBase(object):
         id_list = self.sql_db.get_user_purchased_EBook_list(email)
         ebook_list = list()
         for id in id_list:
-            ebook_list.append(self.get_ebook_info(id))
+            try:
+                ebook_list.append(self.get_ebook_info(id))
+            except TypeError:
+                continue
         return ebook_list
 
     def get_map_book_list(self,book_type):
