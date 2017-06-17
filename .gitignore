@@ -1,5 +1,4 @@
 *.pyc
 .python-version
 .idea
-static/Ebook/*
 !static/Ebook/test.txt
