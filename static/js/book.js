@@ -1,5 +1,5 @@
 function getBook() {
-    var id = + window.location.pathname.split('/')[2];
+    var id = window.location.pathname.split('/')[2];
     $.ajax({
         type: 'GET',
         url: '/api/v1/ebook',
@@ -23,7 +23,7 @@ function getBook() {
 }
 
 function purchase_verify() {
-    var id = + window.location.pathname.split('/')[2];
+    var id = window.location.pathname.split('/')[2];
     $.ajax({
         type: 'GET',
         url: '/api/v1/purchase_verify',
@@ -55,7 +55,7 @@ function purchase_verify() {
 }
 
 function purchase() {
-    var id = + window.location.pathname.split('/')[2];
+    var id = window.location.pathname.split('/')[2];
     $.ajax({
         type: 'GET',
         url: '/api/v1/purchase',
@@ -82,7 +82,7 @@ function purchase() {
 }
 
 function purchased() {
-    var id = + window.location.pathname.split('/')[2];
+    var id = window.location.pathname.split('/')[2];
     $.ajax({
         type: 'GET',
         url: '/api/v1/purchased',
@@ -101,7 +101,7 @@ function purchased() {
 }
 
 function download() {
-    var id = + window.location.pathname.split('/')[2];
+    var id = window.location.pathname.split('/')[2];
     var url = '/download/' + id;
     window.open(url, 'Download');
 }
