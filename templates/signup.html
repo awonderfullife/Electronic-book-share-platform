@@ -120,15 +120,19 @@
       </nav>
     <div class="container">
 
-      <form id="signup-form" class="form-signup">
+      <form id="signup-form" class="form-signup" data-toggle="validator">
         <h2 class="form-signup-heading">请填写以下信息完成注册</h2>
         <div class="form-group">
             <label for="username">用户名</label>
-            <input type="username" class="form-control" id="username" name="username" placeholder="Username">
+            <input type="username" class="form-control" id="username" name="username" placeholder="Username"
+            data-error="请输入用户名" required>
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label for="email">电子邮箱</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+            data-error="邮箱格式不正确" required>
+            <div class="help-block with-errors"></div>
             <div class="alert alert-danger hidden" id="used-email" role="alert">
               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
               <span class="sr-only">Error:</span>
@@ -137,16 +141,19 @@
         </div>
         <div class="form-group">
             <label for="password">密码</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+            data-error="请输入密码" required>
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label for="exampleInputFile">头像</label>
-            <input type="file" id="exampleInputFile" name="exampleInputFile">
-            <p class="help-block">请选择头像文件</p>
+            <input type="file" id="exampleInputFile" name="exampleInputFile"
+            data-error="请选择头像文件" required>
+            <div class="help-block with-errors"></div>
         </div>
         <div class="checkbox">
             <label>
-            <input type="checkbox"> 我已阅读并同意
+            <input type="checkbox" required> 我已阅读并同意
             <a href="#">《电子书分享平台用户须知》</a>
             </label>
         </div>
@@ -180,6 +187,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/static/assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/validator.js"></script>
     <script src="/static/js/signup.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/static/assets/js/vendor/holder.min.js"></script>
