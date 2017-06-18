@@ -114,10 +114,16 @@ body {
 
 .marketing .col-md-3 h3 {
   font-size: 20px;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .marketing .col-md-3 p {
   font-size: 15px;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .marketing .col-md-3 span {
