@@ -181,7 +181,7 @@ class DataBase(object):
                 book_list.append(
                     {
                         'name':book_info['name'],
-                        'size':book_info['score'],
+                        'size':book_info['score']%5+1,
                         'url':book_info['url']
                     }
                 )
