@@ -85,6 +85,10 @@ footer {
   font-weight: lighter;
 }
 
+.marketing .col-lg-4 .item-foot{
+  height: 40px;
+}
+
 .marketing .col-lg-4 .credit{
   font-weight: bold;
   font-size: 15px;

@@ -137,6 +137,10 @@ body {
   font-size: 15px;
 }
 
+.marketing .col-md-3 .item-foot{
+  height: 40px;
+}
+
 .thumbnail:hover {
     border-color: #25a6c5;
 }

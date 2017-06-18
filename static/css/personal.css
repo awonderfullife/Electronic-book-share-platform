@@ -45,6 +45,10 @@ body {
   color: red;
 }
 
+.item-foot{
+  height: 40px;
+}
+
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
