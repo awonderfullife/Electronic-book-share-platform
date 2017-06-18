@@ -137,6 +137,9 @@ body {
   font-size: 15px;
 }
 
+.thumbnail:hover {
+    border-color: #25a6c5;
+}
 
 /* Featurettes
 ------------------------- */

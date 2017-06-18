@@ -1,3 +1,23 @@
+function book_template(book) {
+    var html = [
+'<div class="col-md-3 col-sm-4 col-md-8">',
+'  <div class="thumbnail">',
+'    <a href="' + book.url + '"><img src="' + book.img_url + '"alt="Book image"></a>',
+'    <div class="caption">',
+'      <h3>' + book.name + '</h3>',
+'      <p>' + book.description.slice(0, 30) + '</p>',
+'    </div>',
+'    <span class="download">下载量' + book.download_times + '</span>',
+'    <a href="' + book.url + '"class="btn btn-success" role="button">',
+'      <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>',
+'      <span class="credit">' + book.score + '积分</span>',
+'    </a>',
+'  </div>',
+'</div>',
+    ].join("\n");
+    return html;
+}
+
 function showHotBooks() {
     $.ajax({
         type: 'GET',
@@ -6,16 +26,9 @@ function showHotBooks() {
             'num': 8,
         },
         success: function(data) {
-            console.log(data);
-            $('#hotbooks div.thumbnail').each(function(index, value) {
-                var div = $(value);
-                var book = data[index];
-                div.find('img').attr('src', book.img_url);
-                div.find('h3').html(book.name);
-                div.find('p').html(book.description.slice(0, 30));
-                div.find('a.btn').attr('href', book.url);
-                div.find('span.download').html('下载量' + book.download_times);
-                div.find('span.credit').html(book.score + '积分');
+            $.each(data, function(index, book) {
+                var html = book_template(book);
+                $("#hotbooks").append(html);
             });
         },
     });
