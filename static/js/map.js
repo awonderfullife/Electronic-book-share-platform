@@ -50,7 +50,11 @@ function draw_map(data) {
             }
         })
         .style("fill", function (d) {
-            return d.children ? color(d.depth) : null;
+            return randomColor({
+                luminosity: 'bright',
+                format: 'rgba',
+                alpha: 0.15 + 0.1 * d.depth,
+            });
         })
         .on("click", function (d) {
             if (!d.children) {
