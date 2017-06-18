@@ -107,7 +107,7 @@ class DataBase(object):
         }
 
     def hot_books(self, num):
-        ebook_id_list = self.sql_db.filterEbook()[0:num]
+        ebook_id_list = random.sample(self.sql_db.filterEbook(),num)
         res = []
         for id in ebook_id_list:
             res.append(self.get_ebook_info(id))
