@@ -7,7 +7,7 @@ function book_template(img_url, title, url) {
             '<h3>' + title + '</h3>',
         '</div>',
         '<a href="' + url + '" class="btn btn-info btn-download" role="button"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>',
-            '<span class="credit">',
+            '<span>',
                 '查看',
             '</span>',
         '</a>',
