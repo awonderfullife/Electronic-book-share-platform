@@ -11,6 +11,8 @@ function getBook() {
             book = data;
             $('#book-img').attr('src', data.img_url);
             $('#name').html(data.name);
+            $('#nav-name').html(data.name);
+            $('#nav-catagory').html(data.catagory);
             $('#uploader').html(data.uploader);
             $('#upload-time').html(data.created_at);
             $('#download-times').html(data.download_times);
