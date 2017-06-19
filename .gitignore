@@ -1,6 +1,4 @@
 *.pyc
-<<<<<<< HEAD
 .python-version
-=======
-.python-version
->>>>>>> Add gitignore
+.idea
+!static/Ebook/test.txt

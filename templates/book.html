@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/icon/icon.png">
+
+    <title>电子书分享平台_主页</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="/static/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src=".././static/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/static/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/book.css" rel="stylesheet">
+  </head>
+
+  <body>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img class="navbar-img" src="/static/icon/main.png">
+            </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 主页<span class="sr-only">(current)</span></a></li>
+              <li><a href="/map"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 学科地图</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  学科分类<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="/list">计算机</a></li>
+                      <li><a href="#">经济管理</a></li>
+                      <li><a href="#">心理学</a></li>
+                      <li><a href="#">外语</a></li>
+                      <li><a href="#">文学历史</a></li>
+                      <li><a href="#">艺术设计</a></li>
+                      <li><a href="#">工学</a></li>
+                      <li><a href="#">理学</a></li>
+                  </ul>
+              </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入检索的图书">
+              </div>
+              <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <!--<li><a href="#"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 联系我们</a></li>-->
+              <li id="nav-login" class="hidden">
+                <!-- Button trigger modal -->
+                <a href="#" id="login" role="button" data-toggle="modal" role="button" data-target="#myModal">
+                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                  登录
+                </a>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">请登录</h4>
+                      </div>
+                      <div class="modal-body">
+                          <div id="login-error" class="alert alert-danger hidden">
+                            <strong>Error!</strong> Login Error
+                          </div>
+                          <form id="login-form" class="form-signin">
+                              <label for="inputEmail" class="sr-only">Email address</label>
+                              <input type="email" name="email" id="inputEmail" class="form-control" placeholder="电子邮箱" required autofocus>
+                              <label for="inputPassword" class="sr-only">Password</label>
+                              <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                              <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                        <a class="btn btn-default" href="/signup" role="button">没有帐号？立即注册</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="dropdown hidden" id="nav-username">
+                  <a href="#" id="username" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                  <ul class="dropdown-menu">
+                      <li><a id="mypage" href="/personal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a></li>
+                      <li><a id="logout" href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> 注销</a></li>
+                  </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+    <div class="container">
+
+      <div class="blog-header">
+        <ol class="breadcrumb">
+          <li><a href="/">主页</a></li>
+          <li><a id="nav-catagory" href="/list"></a></li>
+          <li id="nav-name" class="active"></li>
+        </ol>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-4 blog-sidebar">
+          <div class="thumbnail">
+            <img id="book-img" alt="Book image">
+          </div>
+        </div>
+
+        <div class="col-sm-6 blog-main">
+          <div class="blog-post">
+            <h3 id="name" class="blog-post-title"></h3>
+            <dl class="dl-horizontal">
+              <dt>上传者</dt>
+              <dd><a id="uploader" href="#"></a></dd>
+              <dt>上传时间</dt>
+              <dd id="upload-time"></dd>
+              <dt>下载量</dt>
+              <dd id="download-times"></dd>
+              <dt>所需积分</dt>
+              <dd><span id="score" class="credit"></span></dd>
+            </dl>
+          </div>
+              <div class="well well-sm myrating">
+                <div class="row">
+                    <div class="col-xs-12 col-md-5 text-center">
+                        <h1 class="rating-num">4.0</h1>
+                        <div class="rating">
+                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                            </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                            </span><span class="glyphicon glyphicon-star-empty"></span>
+                        </div>
+                        <div>
+                            <span class="glyphicon glyphicon-user"></span>1,050,008评价
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="row rating-desc">
+                          <div class="row">
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span class="glyphicon glyphicon-star"></span>5
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                        <span class="sr-only">80%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end 5 -->
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span class="glyphicon glyphicon-star"></span>4
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        <span class="sr-only">60%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end 4 -->
+                            </div>
+                            <div class="row">
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span class="glyphicon glyphicon-star"></span>3
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end 3 -->
+                            </div>
+                            <div class="row">
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span class="glyphicon glyphicon-star"></span>2
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <span class="sr-only">20%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end 2 -->
+                            </div>
+                            <div class="row">
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span class="glyphicon glyphicon-star"></span>1
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                        <span class="sr-only">15%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end 1 -->
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </div>
+                </div>
+            </div>
+          <div class="blog-post">
+            <div class="dual-btn">
+              <!-- Button trigger modal -->
+                <button id="purchase" type="button" class="hidden btn btn-success">
+                  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                  购买
+                </button>
+                <button id="download" type="button" class="hidden btn btn-success">
+                  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                  下载
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">请确认</h4>
+                      </div>
+                      <div class="modal-body">
+                          <p>我的积分<span id="myscore" class="credit"></span></p>
+                          <p>确认支付<span id="confirm-score" class="credit">10</span>积分？</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button id="confirm-purchase" type="button" class="btn btn-success" data-dismiss="modal">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="need-more-score" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">积分不足</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div>当前积分<span id="curr_score" class="credit"></span></div>
+                        <div>所需积分<span id="need_score" class="credit"></span></div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">我知道了</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="1not-login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">尚未登录</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="not-login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">来自页面的消息</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>尚未登陆！</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-success"  id="register" data-dismiss="modal">
+                              <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> 立即登录
+                          </button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">
+                              <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span> 取消
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#collect">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  收藏
+                </button>
+                <div class="modal fade" id="collect" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">页面消息</h4>
+                      </div>
+                      <div class="modal-body">
+                        收藏成功！
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">确认</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div><!-- /.blog-post -->
+
+        </div><!-- /.blog-main -->
+        <hr>
+        <div class="col-md-12 col-sm-12 blog-sidebar">
+          <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#intro" aria-controls="into" role="tab" data-toggle="tab">简介</a></li>
+              <li role="presentation"><a href="#comment" aria-controls="comment" role="tab" data-toggle="tab">评论</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="intro">
+              <p></p>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="comment">
+                <div class="thumbnail">
+                  <blockquote>
+                    <p>内容精彩！</p>
+                    <div class="rating" data-role="rating" data-param-vote="off" data-param-rating="3.7">
+                    </div>
+                    <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+                  </blockquote>
+                  <hr>
+                  <blockquote>
+                    <p>内容精彩！</p>
+                    <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+                  </blockquote>
+                  <hr>
+                  <blockquote>
+                    <p>内容精彩！</p>
+                    <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+                  </blockquote>
+                  <hr>
+                  <blockquote>
+                    <p>内容精彩！</p>
+                    <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+                  </blockquote>
+                  <hr>
+                  <nav aria-label="...">
+                    <ul class="pagination">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                      <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+      <button type="button" id="purchased" class="btn btn-info hidden" data-toggle="modal" data-target="#purchase-success">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  收藏
+      </button>
+
+      <div class="modal fade" id="purchase-success" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">来自页面的消息</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>购买成功！</h3>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-success"  id="register" data-dismiss="modal">
+                              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 确定
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+    <footer class="blog-footer">
+      <p>Powered by <a href="/">电子书在线分享平台</a></p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/login.js"></script>
+    <script src="/static/js/book.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
